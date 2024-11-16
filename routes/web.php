@@ -2,10 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+// this for route anynomus route redirect to login
+Route::get("{path?}", function () {
+    return redirect()->route('login');
+})->where('path', '.+');

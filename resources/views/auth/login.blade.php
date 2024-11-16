@@ -18,11 +18,10 @@ Login
     <div class="w-px-400 mx-auto pt-5 pt-lg-0">
         <h4 class="mb-3">Welcome to {{ env('APP_NAME') }}</h4>
 
-        <form id="formAuthentication" class="mb-5" action="" method="POST">
+        <form id="loginform" class="mb-5" action="{{ route('signin') }}" method="POST">
             @csrf
             <div class="form-floating form-floating-outline mb-5">
-                <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email"
-                    autofocus />
+                <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
                 <label for="email">Email</label>
             </div>
             <div class="mb-5">

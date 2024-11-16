@@ -13,7 +13,6 @@
 
     <body>
         <!-- Content -->
-
         <div class="authentication-wrapper authentication-cover">
             <!-- Logo -->
             <a href="{{ env('APP_URL') }}" class="auth-cover-brand d-flex align-items-center gap-2">
@@ -77,6 +76,5 @@
         <!-- / Content -->
 
         @include('auth.layout.scripts')
-
     </body>
 </html>
