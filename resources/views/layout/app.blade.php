@@ -6,7 +6,7 @@
 <head>
     @include('layout.meta')
 
-    <title>@yield('title') | {{ env('APP_NAME') }}</title>
+    <title>@yield('title') | {{ _settings('SITE_TITLE') }}</title>
 
     @include('layout.styles')
 

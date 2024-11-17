@@ -4,7 +4,7 @@
     <head>
         @include('auth.layout.meta')
 
-        <title>Login | {{ env('APP_NAME') }}</title>
+        <title>Login | {{ _settings('SITE_TITLE') }}</title>
 
         @include('auth.layout.styles')
 
@@ -15,7 +15,7 @@
         <!-- Content -->
         <div class="authentication-wrapper authentication-cover">
             <!-- Logo -->
-            <a href="{{ env('APP_URL') }}" class="auth-cover-brand d-flex align-items-center gap-2">
+            <a href="{{ _settings('SITE_URL') }}" class="auth-cover-brand d-flex align-items-center gap-2">
                 <span class="app-brand-logo demo">
                     <span style="color: var(--bs-primary)">
                         <svg width="268" height="150" viewBox="0 0 38 20" fill="none"
@@ -53,7 +53,7 @@
                         </svg>
                     </span>
                 </span>
-                <span class="app-brand-text demo text-heading fw-semibold">{{ env('APP_NAME') }}</span>
+                <span class="app-brand-text demo text-heading fw-semibold">{{ _settings('SITE_TITLE') }}</span>
             </a>
             <!-- /Logo -->
             <div class="authentication-inner row m-0">

@@ -11,6 +11,7 @@ class SettingSeeder extends Seeder{
         $general = [
             'SITE_TITLE' => 'Golden Panda', 
             'SITE_TITLE_SF' => 'GP', 
+            'SITE_URL' => 'http://localhost:8000/', 
             'CONTACT_NUMBER' => '+91-9898000001',
             'MAIN_CONTACT_NUMBER' => '+91-9898000002',
             'CONTACT_EMAIL' => 'info@goldenpanda.com',
@@ -39,7 +40,7 @@ class SettingSeeder extends Seeder{
             'MAIL_PASSWORD' => 'Test@goldenpanda123',
             'MAIL_ENCRYPTION' => 'tls',
             'MAIL_FROM_ADDRESS' => 'test@goldenpanda.com',
-            'MAIL_FROM_NAME' => 'Kripton Tech'
+            'MAIL_FROM_NAME' => 'Golden Panda'
         ];
 
         foreach($smtp as $key => $value){
