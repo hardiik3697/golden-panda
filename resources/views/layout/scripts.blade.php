@@ -18,5 +18,7 @@
 
 <!-- Main JS -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
-
+<script>
+    const APP_URL = "{{ config('env.APP_URL') }}";
+ </script>
 @yield('scripts')

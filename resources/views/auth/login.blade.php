@@ -18,7 +18,7 @@ Login
     <div class="w-px-400 mx-auto pt-5 pt-lg-0">
         <h4 class="mb-3">Welcome to {{ env('APP_NAME') }}</h4>
 
-        <form id="loginform" class="mb-5" action="{{ route('signin') }}" method="POST">
+        <form id="loginForm" class="mb-5" action="{{ route('signIn') }}" method="POST">
             @csrf
             <div class="form-floating form-floating-outline mb-5">
                 <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
@@ -39,20 +39,13 @@ Login
                     </div>
                 </div>
             </div>
-            <div class="mb-5 d-flex justify-content-between mt-5">
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="checkbox" name="remember" id="remember" />
-                    <label class="form-check-label" for="remember-me"> Remember Me </label>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary d-grid w-100">Sign in</button>
+            <button id="submit" type="submit" class="btn btn-primary d-grid w-100">Sign in</button>
         </form>
     </div>
 </div>
 <!-- /Login -->
 @endsection
 
-@section('scripts')
-<!-- Page JS -->
-<script src="{{ asset('assets/js/pages-auth.js') }}"></script>
-@endsection
+@php
+$pageJs = ['resources/js/project/auth/login.js'];
+@endphp

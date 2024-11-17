@@ -6,7 +6,7 @@
 <head>
     @include('layout.meta')
 
-    <title>@yield('title') | {{ env('APP_NAME') }}</title>
+    <title>@yield('title') | {{ config('env.APP_NAME') }}</title>
 
     @include('layout.styles')
 
@@ -48,5 +48,12 @@
     <!-- / Layout wrapper -->
 
     @include('layout.scripts')
+    {{-- Dynamically Include Page-Specific JS --}}
+    @if (isset($pageJs) && is_array($pageJs))
+        @foreach ($pageJs as $jsFile)
+            {{-- Dynamically load JS files via @vite --}}
+            @vite($jsFile)
+        @endforeach
+    @endif
 </body>
 </html>

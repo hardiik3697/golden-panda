@@ -1,5 +1,6 @@
 <?php
 
+use App\Providers\RolePermissionProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -15,4 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
-    })->create();
+    })
+    ->booting(function (Application $app) {
+        // Register MiddlewareServiceProvider here
+        $app->register(RolePermissionProvider::class);
+        $app->singleton('home_route', fn () => env('APP_HOME', '/dashboard'));
+    })
+    ->create();

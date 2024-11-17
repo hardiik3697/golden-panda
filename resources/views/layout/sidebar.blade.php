@@ -57,11 +57,36 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboards -->
-        <li class="menu-item active open">
-            <a href="javascript:void(0);" class="menu-link">
+        <li class="menu-item {{ (Request::is('dashboard*') || Request::is('/')) ? 'active' : '' }}">
+            <a href="{{ route('dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons ri-home-smile-line"></i>
                 <div data-i18n="Dashboards">Dashboards</div>
             </a>
+        </li>
+
+        <li class="menu-item {{ (Request::is('roles*') || Request::is('permission*') || Request::is('access*')) ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ri-lock-2-line"></i>
+                <div data-i18n="Access-Control">Access Control</div>
+            </a>
+
+            <ul class="menu-sub">
+                <li class="menu-item {{ (Request::is('roles*')) ? 'active' : '' }}">
+                    <a href="{{ route('roles.index') }}" class="menu-link">
+                        <div data-i18n="Roles">Roles</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ (Request::is('permission*')) ? 'active' : '' }}">
+                    <a href="Access-Control-content-navbar.html" class="menu-link">
+                        <div data-i18n="Permissions">Permissions</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ (Request::is('access*')) ? 'active' : '' }}">
+                    <a href="Access-Control-content-navbar-with-sidebar.html" class="menu-link">
+                        <div data-i18n="Access">Access</div>
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 </aside>
