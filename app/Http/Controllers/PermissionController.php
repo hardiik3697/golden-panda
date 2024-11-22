@@ -3,55 +3,47 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Http\Requests\PermissionRequest;
-use Auth, DB, Mail, Validator, File, DataTables;
+use Yajra\DataTables\DataTables;
+use Auth, DB, Mail, Validator, File;
 
 class PermissionController extends Controller{
-    /** construct */
-        public function __construct(){
-            // $this->middleware('permission:permission-create', ['only' => ['create']]);
-            // $this->middleware('permission:permission-edit', ['only' => ['edit']]);
-            // $this->middleware('permission:permission-view', ['only' => ['view']]);
-            // $this->middleware('permission:permission-delete', ['only' => ['delete']]);
-        }
-    /** construct */
 
     /** index */
         public function index(Request $request){
             if($request->ajax()){
                 $data = Permission::select('id', 'name', 'guard_name')->orderBy('id', 'desc')->get();
 
-                // return Datatables::of($data)
-                //         ->addIndexColumn()
-                //         ->addColumn('action', function($data){
-                //             $return = '<div class="btn-group">';
+                return Datatables::of($data)
+                        ->addIndexColumn()
+                        ->addColumn('action', function($data){
+                            $return = '<div class="btn-group">';
 
-                //             if(auth()->user()->can('permission-view')){
-                //                 $return .= '<a href="'.route('permission.view', ['id' => base64_encode($data->id)]).'" class="btn btn-default btn-xs">
-                //                                 <i class="fa fa-eye"></i>
-                //                             </a> &nbsp;';
-                //             }
+                            if (auth()->user()->can('permission-view')) {
+                                $return .= '<a href="' . route('permission.view', ['id' => base64_encode($data->id)]) . '" class="btn btn-sm rounded-pill btn-icon">
+                                                        <i class="ri-eye-line"></i>
+                                                    </a> &nbsp;';
+                            }
+        
+                            if (auth()->user()->can('permission-edit')) {
+                                $return .= '<a href="' . route('permission.edit', ['id' => base64_encode($data->id)]) . '" class="btn btn-sm rounded-pill btn-icon">
+                                                        <i class="ri-edit-box-line"></i>
+                                                    </a>';
+                            }
+        
+                            if (auth()->user()->can('permission-delete')) {
+                                $return .= '<a class="btn btn-sm rounded-pill btn-icon" href="javascript:void(0);" onclick="delete_func(this);" data-id="' . $data->id . '">
+                                                        <i class="ri-delete-bin-2-line"></i>
+                                                    </a> &nbsp;';
+                            }
+        
+                            $return .= '</div>';
 
-                //             if(auth()->user()->can('permission-edit')){
-                //                 $return .= '<a href="'.route('permission.edit', ['id' => base64_encode($data->id)]).'" class="btn btn-default btn-xs">
-                //                                 <i class="fa fa-edit"></i>
-                //                             </a> &nbsp;';
-                //             }
-
-                //             if(auth()->user()->can('permission-delete')){
-                //                 $return .= '<a class="btn btn-default btn-xs" href="javascript:void(0);" onclick="delete_func(this);" data-id="'.$data->id.'">
-                //                                 <i class="fa fa-trash"></i>
-                //                             </a> &nbsp;';
-                //             }
-
-                //             $return .= '</div>';
-
-                //             return $return;
-                //         })
-                //         ->rawColumns(['action'])
-                //         ->make(true);
+                            return $return;
+                        })
+                        ->rawColumns(['action'])
+                        ->make(true);
             }
 
             return view('permission.index');
@@ -70,7 +62,7 @@ class PermissionController extends Controller{
 
             $curd = [
                 'name' => $request->name,
-                'guard_name' => $request->guard_name,
+                'guard_name' => $request->guard_name ?? 'web',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
@@ -103,7 +95,7 @@ class PermissionController extends Controller{
 
             $curd = [
                 'name' => $request->name,
-                'guard_name' => $request->guard_name,
+                'guard_name' => $request->guard_name ?? 'web',
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
 

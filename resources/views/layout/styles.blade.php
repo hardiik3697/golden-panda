@@ -40,8 +40,10 @@
        width: 98% !important;
     }
 
-    /* --bs-form-valid-color: #cb2027;
-    --bs-form-valid-border-color: #cb2027; */
+    .mySelect[readonly] {
+        pointer-events: none !important;
+        cursor: not-allowed !important;
+    }
 </style>
 
 @yield('styles')

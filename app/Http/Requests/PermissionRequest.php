@@ -13,12 +13,12 @@ class PermissionRequest extends FormRequest{
         if($this->method() == 'PATCH'){
             return [
                 'name' => 'required|regex:/^[\pL\s\-]+$/u|max:255|unique:permissions,name,'.$this->id,
-                'guard_name' => 'required|regex:/^[\pL\s\-]+$/u|max:255'
+                // 'guard_name' => 'required|regex:/^[\pL\s\-]+$/u|max:255'
             ];
         }else{
             return [
                 'name' => 'required|regex:/^[\pL\s\-]+$/u|max:255|unique:permissions,name',
-                'guard_name' => 'required|regex:/^[\pL\s\-]+$/u|max:255'
+                // 'guard_name' => 'required|regex:/^[\pL\s\-]+$/u|max:255'
             ];
         }
     }

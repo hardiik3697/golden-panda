@@ -4,7 +4,7 @@
 @endsection
 
 @section('title')
-New Role
+Update Access
 @endsection
 
 @section('styles')
@@ -15,15 +15,26 @@ New Role
     <div class="row sm-12">
         <div class="col-md">
             <div class="card">
-                <h5 class="card-header">New Role</h5>
+                <h5 class="card-header">Update Access</h5>
                 <div class="card-body">
-                    <form action="{{ route('role.insert') }}" name="form" id="form" method="post" class="needs-validation ajax-form" novalidate="">
+                    <form action="{{ route('access.update') }}" name="form" id="form" method="post"
+                        class="needs-validation ajax-form" novalidate="">
+                        <input type="hidden" name="id" value="{{ $data->id }}">
+
                         @csrf
-                        @method('post')
-                        <div class="form-floating form-floating-outline mb-6">
-                            <input name="name" type="text" value="{{ @old('name') }}" id="name" class="form-control" placeholder="Employee / Guest" >
-                            <label for="bs-validation-name">Name</label>
-                            <div class="invalid-feedback invalid-feedback-name"></div>
+                        @method('PATCH')
+
+                        <div class="mb-4">
+                            <label for="role" name="role" class="form-label" placeholder="Select Role">Role</label>
+                            <select class="form-select mySelect" name="role" id="role" readonly>
+                                <option value="">Select role</option>
+                                @if(isset($roles) && $roles->isNotEmpty())
+                                    @foreach($roles as $role)
+                                        <option value="{{ $role->id }}" @if($data->id == $role->id) selected @endif>{{ ucfirst(str_replace('_', ' ', $role->name)) }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                            <div class="invalid-feedback invalid-feedback-role"></div>
                         </div>
                         <div class="row g-0">
                             <small class="text-light fw-medium d-block">Permissions</small>
@@ -31,7 +42,7 @@ New Role
                             @foreach($permissions as $value)
                                 <div class="col-sm-3 p-6">
                                     <label class="switch" for="checkbox-{{ $value->id }}">
-                                        <input type="checkbox" name="permissions[]" id="checkbox-{{ $value->id }}" value="{{ $value->name }}" class="switch-input">
+                                        <input type="checkbox" name="permissions[]" id="checkbox-{{ $value->id }}" value="{{ $value->id }}" class="switch-input" <?php if(in_array($value->name, $role_permissions)){ echo 'checked'; } ?>>
                                         <span class="switch-toggle-slider">
                                             <span class="switch-on">
                                                 <i class="ri-check-line"></i>
@@ -48,7 +59,7 @@ New Role
                         <div class="row">
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
-                                <a href="{{ route('role') }}" class="btn btn-primary waves-effect waves-light">Cancel</a>
+                                <a href="{{ route('access') }}" class="btn btn-primary waves-effect waves-light">Cancel</a>
                             </div>
                         </div>
                     </form>
@@ -65,7 +76,7 @@ New Role
         var form = $('.ajax-form');
         form.submit(function (e) {
             $('.ajax-form').removeClass('was-validated');
-            $('.invalid-feedback').css({"display": "none"});
+            $('.invalid-feedback').css({ "display": "none" });
             $('.invalid-feedback').html('');
             $.ajax({
                 url: form.attr('action'),
@@ -84,8 +95,8 @@ New Role
                         var errors = response.responseJSON;
                         $.each(errors.errors, function (key, value) {
                             $('.ajax-form').addClass('was-validated');
-                            $('.invalid-feedback-'+key).css({"display": "block"});
-                            $('.invalid-feedback-'+key).html(value[0]);
+                            $('.invalid-feedback-' + key).css({ "display": "block" });
+                            $('.invalid-feedback-' + key).html(value[0]);
                         });
                     }
                 }

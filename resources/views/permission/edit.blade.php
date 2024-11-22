@@ -4,7 +4,7 @@
 @endsection
 
 @section('title')
-New Role
+Update Permission
 @endsection
 
 @section('styles')
@@ -15,40 +15,28 @@ New Role
     <div class="row sm-12">
         <div class="col-md">
             <div class="card">
-                <h5 class="card-header">New Role</h5>
+                <h5 class="card-header">Update Permission</h5>
                 <div class="card-body">
-                    <form action="{{ route('role.insert') }}" name="form" id="form" method="post" class="needs-validation ajax-form" novalidate="">
+                    <form action="{{ route('permission.update') }}" name="form" id="form" method="post" class="needs-validation ajax-form" novalidate="">
+                        <input type="hidden" name="id" value="{{ $data->id }}">
+                        
                         @csrf
-                        @method('post')
+                        @method('PATCH')
+
                         <div class="form-floating form-floating-outline mb-6">
-                            <input name="name" type="text" value="{{ @old('name') }}" id="name" class="form-control" placeholder="Employee / Guest" >
+                            <input name="name" type="text" value="{{ $data->name ?? @old('name') }}" id="name" class="form-control" placeholder="Employee / Guest" >
                             <label for="bs-validation-name">Name</label>
                             <div class="invalid-feedback invalid-feedback-name"></div>
                         </div>
-                        <div class="row g-0">
-                            <small class="text-light fw-medium d-block">Permissions</small>
-                            <div class="invalid-feedback invalid-feedback-permissions"></div>
-                            @foreach($permissions as $value)
-                                <div class="col-sm-3 p-6">
-                                    <label class="switch" for="checkbox-{{ $value->id }}">
-                                        <input type="checkbox" name="permissions[]" id="checkbox-{{ $value->id }}" value="{{ $value->name }}" class="switch-input">
-                                        <span class="switch-toggle-slider">
-                                            <span class="switch-on">
-                                                <i class="ri-check-line"></i>
-                                            </span>
-                                            <span class="switch-off">
-                                                <i class="ri-close-line"></i>
-                                            </span>
-                                        </span>
-                                        <span class="switch-label">{{ $value->name }}</span>
-                                    </label>
-                                </div>
-                            @endforeach
+                        <div class="form-floating form-floating-outline mb-6">
+                            <input name="guard_name" type="text" value="{{ $data->guard_name ?? @old('guard_name') }}" id="guard_name" class="form-control" placeholder="web / api" >
+                            <label for="bs-validation-guard_name">Guard Name</label>
+                            <div class="invalid-feedback invalid-feedback-guard_name"></div>
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
-                                <a href="{{ route('role') }}" class="btn btn-primary waves-effect waves-light">Cancel</a>
+                                <a href="{{ route('permission') }}" class="btn btn-primary waves-effect waves-light">Cancel</a>
                             </div>
                         </div>
                     </form>

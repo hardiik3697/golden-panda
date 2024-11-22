@@ -4,7 +4,7 @@
 @endsection
 
 @section('title')
-View Role
+Update Access
 @endsection
 
 @section('styles')
@@ -15,13 +15,26 @@ View Role
     <div class="row sm-12">
         <div class="col-md">
             <div class="card">
-                <h5 class="card-header">View Role</h5>
+                <h5 class="card-header">Update Access</h5>
                 <div class="card-body">
-                    <form>
-                        <div class="form-floating form-floating-outline mb-6">
-                            <input name="name" type="text" value="{{ $data->name ?? @old('name') }}" id="name" class="form-control" placeholder="Employee / Guest" disabled>
-                            <label for="bs-validation-name">Name</label>
-                            <div class="invalid-feedback invalid-feedback-name"></div>
+                    <form action="{{ route('access.update') }}" name="form" id="form" method="post"
+                        class="needs-validation ajax-form" novalidate="">
+                        <input type="hidden" name="id" value="{{ $data->id }}">
+
+                        @csrf
+                        @method('PATCH')
+
+                        <div class="mb-4">
+                            <label for="role" name="role" class="form-label" placeholder="Select Role">Role</label>
+                            <select class="form-select mySelect" name="role" id="role" readonly>
+                                <option value="">Select role</option>
+                                @if(isset($roles) && $roles->isNotEmpty())
+                                    @foreach($roles as $role)
+                                        <option value="{{ $role->id }}" @if($data->id == $role->id) selected @endif>{{ ucfirst(str_replace('_', ' ', $role->name)) }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                            <div class="invalid-feedback invalid-feedback-role"></div>
                         </div>
                         <div class="row g-0">
                             <small class="text-light fw-medium d-block">Permissions</small>
@@ -29,7 +42,7 @@ View Role
                             @foreach($permissions as $value)
                                 <div class="col-sm-3 p-6">
                                     <label class="switch" for="checkbox-{{ $value->id }}">
-                                        <input type="checkbox" name="permissions[]" id="checkbox-{{ $value->id }}" value="{{ $value->name }}" class="switch-input" <?php if(in_array($value->name, $role_permissions)){ echo 'checked'; } ?> disabled>
+                                        <input type="checkbox" name="permissions[]" id="checkbox-{{ $value->id }}" value="{{ $value->id }}" class="switch-input" <?php if(in_array($value->name, $role_permissions)){ echo 'checked'; } ?>>
                                         <span class="switch-toggle-slider">
                                             <span class="switch-on">
                                                 <i class="ri-check-line"></i>
@@ -45,7 +58,9 @@ View Role
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <a href="{{ route('role') }}" class="btn btn-primary waves-effect waves-light">Cancel</a>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                                <a href="{{ route('access') }}"
+                                    class="btn btn-primary waves-effect waves-light">Cancel</a>
                             </div>
                         </div>
                     </form>

@@ -51,6 +51,7 @@ Update Role
                         <div class="row">
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                                <a href="{{ route('role') }}" class="btn btn-primary waves-effect waves-light">Cancel</a>
                             </div>
                         </div>
                     </form>

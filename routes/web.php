@@ -14,7 +14,7 @@ Route::group(['middleware' => ['prevent-back-history']], function(){
         Route::post('/singin', [AuthController::class, 'singin'])->name('singin');
     });
 
-    Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
         Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
