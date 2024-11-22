@@ -289,7 +289,7 @@
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <span class="fw-medium d-block small">John Doe</span>
+                                    <span class="fw-medium d-block small">{{ auth()->user()->firstname ?? 'John' }} {{ auth()->user()->lastname ?? 'Doe' }}</span>
                                     <small class="text-muted">Admin</small>
                                 </div>
                             </div>
@@ -311,7 +311,7 @@
                     </li>
                     <li>
                         <div class="d-grid px-4 pt-2 pb-1">
-                            <a class="btn btn-sm btn-danger d-flex" href="/" target="_blank">
+                            <a class="btn btn-sm btn-danger d-flex" href="{{ route('logout') }}">
                                 <small class="align-middle">Logout</small>
                                 <i class="ri-logout-box-r-line ms-2 ri-16px"></i>
                             </a>

@@ -57,12 +57,37 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboards -->
-        <li class="menu-item active open">
+        <li class="menu-item {{ Request::is('/') ? 'active' : '' }}">
             <a href="{{ _settings('SITE_URL') }}" class="menu-link">
                 <i class="menu-icon tf-icons ri-home-smile-line"></i>
                 <div data-i18n="Dashboards">Dashboards</div>
             </a>
         </li>
+        @canany(['role-create', 'role-edit', 'role-view', 'role-delete', 'permission-create', 'permission-edit', 'permission-view', 'permission-delete', 'access-edit', 'access-view'])
+        <li class="menu-item {{ (Request::is('role*') || Request::is('permission*') || Request::is('access*')) ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle waves-effect">
+                <i class="menu-icon tf-icons ri-lock-2-line"></i>
+                <div data-i18n="Access Control">Access Control</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ Request::is('role*') ? 'active' : '' }}">
+                    <a href="{{ route('role') }}" class="menu-link">
+                        <div data-i18n="Roles">Roles</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ Request::is('permission*') ? 'active' : '' }}">
+                    <a href="{{ route('permission') }}" class="menu-link">
+                        <div data-i18n="Permissions">Permissions</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ Request::is('access*') ? 'active' : '' }}">
+                    <a href="{{ route('access') }}" class="menu-link">
+                        <div data-i18n="Access">Access</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        @endcanany
     </ul>
 </aside>
 <!-- / Menu -->

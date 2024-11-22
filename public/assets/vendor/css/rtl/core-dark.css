@@ -12182,14 +12182,14 @@ html:not([dir=rtl]) .form-floating:not(.form-floating-outline) .form-select {
 }
 
 .was-validated .form-control:valid, .form-control.is-valid {
-  border-color: var(--bs-form-valid-color) !important;
+  border-color: var(--bs-form-invalid-color) !important;
   border-width: 2px;
 }
 .was-validated .form-control:valid ~ .input-group-text, .form-control.is-valid ~ .input-group-text {
   border-width: 2px;
 }
 .dark-style .was-validated .form-control:valid, .dark-style .form-control.is-valid {
-  border-color: var(--bs-form-valid-color) !important;
+  border-color: var(--bs-form-invalid-color) !important;
 }
 .was-validated .form-control:valid:focus, .form-control.is-valid:focus {
   border-color: var(--bs-form-valid-color) !important;
@@ -12237,7 +12237,7 @@ html:not([dir=rtl]) .form-check-inline .form-check-input ~ .valid-feedback {
 .was-validated .form-floating > .form-control:valid ~ label, .form-floating > .form-control.is-valid ~ label,
 .was-validated .form-floating > .form-select:valid ~ label,
 .form-floating > .form-select.is-valid ~ label {
-  color: var(--bs-form-valid-color) !important;
+  color: var(--bs-form-invalid-color) !important;
 }
 .was-validated .form-floating > .form-control:focus:valid, .form-floating > .form-control:focus.is-valid,
 .was-validated .form-floating > .form-control:focus:not(:placeholder-shown):valid,
@@ -12246,7 +12246,7 @@ html:not([dir=rtl]) .form-check-inline .form-check-input ~ .valid-feedback {
 .form-floating > .form-select:focus.is-valid,
 .was-validated .form-floating > .form-select:focus:not(:placeholder-shown):valid,
 .form-floating > .form-select:focus:not(:placeholder-shown).is-valid {
-  border-color: var(--bs-form-valid-color) !important;
+  border-color: var(--bs-form-invalid-color) !important;
 }
 .was-validated .form-floating > .form-control:focus:valid ~ label, .form-floating > .form-control:focus.is-valid ~ label,
 .was-validated .form-floating > .form-control:focus:not(:placeholder-shown):valid ~ label,
@@ -12277,7 +12277,7 @@ html:not([dir=rtl]) .form-check-inline .form-check-input ~ .valid-feedback {
 
 .was-validated .input-group:has(.input-group-text):has(.form-control:valid) .input-group-text,
 .input-group:has(.input-group-text):has(.form-control.is-valid) .input-group-text {
-  border-color: var(--bs-form-valid-color);
+  border-color: var(--bs-form-invalid-color);
 }
 
 .was-validated .input-group:has(input:valid) .valid-feedback,
@@ -30432,18 +30432,18 @@ html:not([dir=rtl]) .switches-stacked .switch {
   padding-left: 0.5rem;
 }
 
-.was-validated .switch-input:valid ~ .switch-label, .switch-input.invalid ~ .switch-label, .switch-input.is-valid ~ .switch-label {
+/* .was-validated .switch-input:valid ~ .switch-label, .switch-input.invalid ~ .switch-label, .switch-input.is-valid ~ .switch-label {
   color: #72e128;
-}
+} */
 .was-validated .switch-input:valid ~ .valid-feedback,
 .was-validated .switch-input:valid ~ .valid-tooltip, .switch-input.invalid ~ .valid-feedback,
 .switch-input.invalid ~ .valid-tooltip, .switch-input.is-valid ~ .valid-feedback,
 .switch-input.is-valid ~ .valid-tooltip {
   display: block;
 }
-.was-validated .switch-input:valid ~ .switch-toggle-slider, .switch-input.invalid ~ .switch-toggle-slider, .switch-input.is-valid ~ .switch-toggle-slider {
+/* .was-validated .switch-input:valid ~ .switch-toggle-slider, .switch-input.invalid ~ .switch-toggle-slider, .switch-input.is-valid ~ .switch-toggle-slider {
   border: 1px solid #72e128 !important;
-}
+} */
 .was-validated .switch-input:valid:checked ~ .switch-toggle-slider, .switch-input.invalid:checked ~ .switch-toggle-slider, .switch-input.is-valid:checked ~ .switch-toggle-slider {
   background: #72e128;
   color: #fff;

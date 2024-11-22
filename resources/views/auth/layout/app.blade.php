@@ -74,7 +74,6 @@
             </div>
         </div>
         <!-- / Content -->
-
         @include('auth.layout.scripts')
     </body>
 </html>

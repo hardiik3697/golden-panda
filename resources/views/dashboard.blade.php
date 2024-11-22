@@ -23,7 +23,7 @@ Dashboard
                 <div class="d-flex align-items-end row">
                     <div class="col-md-6 order-2 order-md-1">
                         <div class="card-body">
-                            <h4 class="card-title mb-4">Welcome <span class="fw-bold">John!</span> 🎉</h4>
+                            <h4 class="card-title mb-4">Welcome <span class="fw-bold">{{ auth()->user()->firstname ?? 'John' }} {{ auth()->user()->lastname ?? 'Doe' }}</span> 🎉</h4>
                             <p>Check your profile.</p>
                             <a href="javascript:;" class="btn btn-primary">View Profile</a>
                         </div>

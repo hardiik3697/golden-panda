@@ -13,10 +13,48 @@
 <!-- endbuild -->
 
 <!-- Vendors JS -->
-<script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
 <script src="{{ asset('assets/vendor/libs/swiper/swiper.js') }}"></script>
+<script src="{{ asset('assets/vendor/libs/toastr/toastr.js') }}"></script>
 
+<script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
+  
 <!-- Main JS -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
+<script>
+    toastr.options = {
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "2000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+    
+    @php
+        $success = '';
+        if(\Session::has('success'))
+            $success = \Session::get('success');
+            
+        $error = '';
+        if(\Session::has('error'))
+            $error = \Session::get('error');
+    @endphp
 
+    var success = "{{ $success }}";
+    var error = "{{ $error }}";
+
+    if(success != ''){
+        toastr.success(success, 'Success');
+    }
+
+    if(error != ''){
+        toastr.error(error, 'error');
+    }
+</script>
 @yield('scripts')
