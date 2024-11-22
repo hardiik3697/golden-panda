@@ -103,12 +103,18 @@ class RoleController extends Controller{
 
             $data = Role::find($id);
             $permissions = Permission::get();
-            $role_permissions = DB::table("role_has_permissions")
-                                    ->where("role_has_permissions.role_id", $id)
-                                    ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
-                                    ->all();
+            $role_permissions = DB::table("role_has_permissions as rhp")
+                                    ->join('permissions as p', 'rhp.permission_id', '=', 'p.id')
+                                    ->where("rhp.role_id", $id)
+                                    ->select('p.name')
+                                    ->get()
+                                    ->toArray();
 
-            return view('role.edit')->with(['data' => $data, 'permissions' => $permissions, 'role_permissions' => $role_permissions]);
+            $array = [];
+            foreach ($role_permissions as $value) 
+                $array[] = $value->name;
+
+            return view('role.edit')->with(['data' => $data, 'permissions' => $permissions, 'role_permissions' => $array]);
         }
     /** edit */
 
@@ -139,12 +145,18 @@ class RoleController extends Controller{
 
             $data = Role::find($id);
             $permissions = Permission::get();
-            $role_permissions = DB::table("role_has_permissions")
-                                    ->where("role_has_permissions.role_id", $id)
-                                    ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
-                                    ->all();
+            $role_permissions = DB::table("role_has_permissions as rhp")
+                                    ->join('permissions as p', 'rhp.permission_id', '=', 'p.id')
+                                    ->where("rhp.role_id", $id)
+                                    ->select('p.name')
+                                    ->get()
+                                    ->toArray();
 
-            return view('role.view')->with(['data' => $data, 'permissions' => $permissions, 'role_permissions' => $role_permissions]);
+            $array = [];
+            foreach ($role_permissions as $value) 
+                $array[] = $value->name;
+
+            return view('role.view')->with(['data' => $data, 'permissions' => $permissions, 'role_permissions' => $array]);
         }
     /** view */
 
@@ -154,6 +166,10 @@ class RoleController extends Controller{
 
             if(!empty($request->all())){
                 $id = $request->id;
+                
+                if($id == 1)
+                    return redirect()->back()->with('error', 'Failed to update record');
+
                 $delete = Role::where(['id' => $id])->delete();
 
                 if($delete)
