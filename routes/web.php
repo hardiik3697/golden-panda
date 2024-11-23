@@ -23,9 +23,9 @@ Route::group(['middleware' => ['prevent-back-history']], function(){
                 Route::any('role', [RoleController::class, 'index'])->name('role');
                 Route::get('role/create', [RoleController::class, 'create'])->name('role.create');
                 Route::post('role/insert', [RoleController::class, 'insert'])->name('role.insert');
-                Route::get('role/edit', [RoleController::class, 'edit'])->name('role.edit');
-                Route::patch('role/update/{id?}', [RoleController::class, 'update'])->name('role.update');
-                Route::get('role/view', [RoleController::class, 'view'])->name('role.view');
+                Route::get('role/update', [RoleController::class, 'update'])->name('role.update');
+                Route::patch('role/alter/{id?}', [RoleController::class, 'alter'])->name('role.alter');
+                Route::get('role/read', [RoleController::class, 'read'])->name('role.read');
                 Route::post('role/delete', [RoleController::class, 'delete'])->name('role.delete');
             /** role */
 
@@ -33,17 +33,17 @@ Route::group(['middleware' => ['prevent-back-history']], function(){
                 Route::any('permission', [PermissionController::class, 'index'])->name('permission');
                 Route::get('permission/create', [PermissionController::class, 'create'])->name('permission.create');
                 Route::post('permission/insert', [PermissionController::class, 'insert'])->name('permission.insert');
-                Route::get('permission/edit', [PermissionController::class, 'edit'])->name('permission.edit');
-                Route::patch('permission/update/{id?}', [PermissionController::class, 'update'])->name('permission.update');
-                Route::get('permission/view', [PermissionController::class, 'view'])->name('permission.view');
+                Route::get('permission/update', [PermissionController::class, 'update'])->name('permission.update');
+                Route::patch('permission/alter/{id?}', [PermissionController::class, 'alter'])->name('permission.alter');
+                Route::get('permission/read', [PermissionController::class, 'read'])->name('permission.read');
                 Route::post('permission/delete', [PermissionController::class, 'delete'])->name('permission.delete');
             /** permission */
 
             /** access */
                 Route::any('access', [AccessController::class, 'index'])->name('access');
-                Route::get('access/edit', [AccessController::class, 'edit'])->name('access.edit');
-                Route::patch('access/update/{id?}', [AccessController::class, 'update'])->name('access.update');
-                Route::get('access/view', [AccessController::class, 'view'])->name('access.view');
+                Route::get('access/update', [AccessController::class, 'update'])->name('access.update');
+                Route::patch('access/alter/{id?}', [AccessController::class, 'alter'])->name('access.alter');
+                Route::get('access/read', [AccessController::class, 'read'])->name('access.read');
             /** access */
         /** access control */
     });

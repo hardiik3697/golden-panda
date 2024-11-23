@@ -20,14 +20,14 @@ class RoleController extends Controller{
                 ->addColumn('action', function ($data) {
                     $return = '<div class="btn-group">';
 
-                    if (auth()->user()->can('role-view')) {
-                        $return .= '<a href="' . route('role.view', ['id' => base64_encode($data->id)]) . '" class="btn btn-sm rounded-pill btn-icon">
+                    if (auth()->user()->can('role-read')) {
+                        $return .= '<a href="' . route('role.read', ['id' => base64_encode($data->id)]) . '" class="btn btn-sm rounded-pill btn-icon">
                                                 <i class="ri-eye-line"></i>
                                             </a> &nbsp;';
                     }
 
-                    if (auth()->user()->can('role-edit')) {
-                        $return .= '<a href="' . route('role.edit', ['id' => base64_encode($data->id)]) . '" class="btn btn-sm rounded-pill btn-icon">
+                    if (auth()->user()->can('role-update')) {
+                        $return .= '<a href="' . route('role.update', ['id' => base64_encode($data->id)]) . '" class="btn btn-sm rounded-pill btn-icon">
                                                 <i class="ri-edit-box-line"></i>
                                             </a>';
                     }
@@ -87,8 +87,8 @@ class RoleController extends Controller{
     }
     /** insert */
 
-    /** edit */
-    public function edit(Request $request){
+    /** update */
+    public function update(Request $request){
         if (isset($request->id) && $request->id != '' && $request->id != null)
             $id = base64_decode($request->id);
         else
@@ -107,12 +107,12 @@ class RoleController extends Controller{
         foreach ($role_permissions as $value)
             $array[] = $value->name;
 
-        return view('role.edit')->with(['data' => $data, 'permissions' => $permissions, 'role_permissions' => $array]);
+        return view('role.update')->with(['data' => $data, 'permissions' => $permissions, 'role_permissions' => $array]);
     }
-    /** edit */
-
     /** update */
-    public function update(RoleRequest $request){
+
+    /** alter */
+    public function alter(RoleRequest $request){
         if ($request->ajax()) { return true; }
 
         $role = Role::find($request->id);
@@ -127,10 +127,10 @@ class RoleController extends Controller{
             return redirect()->back()->with('error', 'Failed to update record')->withInput();
         }
     }
-    /** update */
+    /** alter */
 
-    /** view */
-    public function view(Request $request){
+    /** read */
+    public function read(Request $request){
         if (isset($request->id) && $request->id != '' && $request->id != null)
             $id = base64_decode($request->id);
         else
@@ -149,9 +149,9 @@ class RoleController extends Controller{
         foreach ($role_permissions as $value)
             $array[] = $value->name;
 
-        return view('role.view')->with(['data' => $data, 'permissions' => $permissions, 'role_permissions' => $array]);
+        return view('role.read')->with(['data' => $data, 'permissions' => $permissions, 'role_permissions' => $array]);
     }
-    /** view */
+    /** read */
 
     /** delete */
     public function delete(Request $request){

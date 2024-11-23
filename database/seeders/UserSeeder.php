@@ -15,6 +15,7 @@ class UserSeeder extends Seeder{
                     [
                         'firstname' => 'Super',
                         'lastname' => 'Admin',
+                        'username' => 'superadmin',
                         'phone' => '7897897891',
                         'email' => 'superadmin@example.com',
                         'role' => 'super'
@@ -22,6 +23,7 @@ class UserSeeder extends Seeder{
                     [
                         'firstname' => 'Mitul',
                         'lastname' => 'Gajjar',
+                        'username' => 'mitulgajjar',
                         'phone' => '7897897892',
                         'email' => 'mitul@example.com',
                         'role' => 'admin'
@@ -29,6 +31,7 @@ class UserSeeder extends Seeder{
                     [
                         'firstname' => 'HardIIk',
                         'lastname' => 'Patel',
+                        'username' => 'hardikpatel',
                         'phone' => '7897897893',
                         'email' => 'hardik@example.com',
                         'role' => 'admin'
@@ -36,6 +39,7 @@ class UserSeeder extends Seeder{
                     [
                         'firstname' => 'Brijesh',
                         'lastname' => 'Patel',
+                        'username' => 'brijeshpatel',
                         'phone' => '7897897893',
                         'email' => 'brijesh@example.com',
                         'role' => 'employee'
@@ -43,6 +47,7 @@ class UserSeeder extends Seeder{
                     [
                         'firstname' => 'Kiran',
                         'lastname' => 'Patel',
+                        'username' => 'kiranpatel',
                         'phone' => '7897897894',
                         'email' => 'kiran@example.com',
                         'role' => 'employee'
@@ -50,6 +55,7 @@ class UserSeeder extends Seeder{
                     [
                         'firstname' => 'Sani',
                         'lastname' => 'Patel',
+                        'username' => 'sanipatel',
                         'phone' => '7897897895',
                         'email' => 'sani@example.com',
                         'role' => 'guest'
@@ -57,6 +63,7 @@ class UserSeeder extends Seeder{
                     [
                         'firstname' => 'Jaydeep',
                         'lastname' => 'Patel',
+                        'username' => 'jaydeeppatel',
                         'phone' => '7897897896',
                         'email' => 'jaydeep@example.com',
                         'role' => 'guest'
@@ -67,6 +74,7 @@ class UserSeeder extends Seeder{
             $user = User::create([
                 'firstname' => $row['firstname'],
                 'lastname' => $row['lastname'],
+                'username' => $row['username'],
                 'phone' => $row['phone'],
                 'email' => $row['email'],
                 'password' => bcrypt('Admin@123'),

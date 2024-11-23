@@ -17,7 +17,7 @@ Update Access
             <div class="card">
                 <h5 class="card-header">Update Access</h5>
                 <div class="card-body">
-                    <form action="{{ route('access.update') }}" name="form" id="form" method="post"
+                    <form action="{{ route('access.alter') }}" name="form" id="form" method="post"
                         class="needs-validation ajax-form" novalidate="">
                         <input type="hidden" name="id" value="{{ $data->id }}">
 
@@ -59,8 +59,7 @@ Update Access
                         <div class="row">
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
-                                <a href="{{ route('access') }}"
-                                    class="btn btn-primary waves-effect waves-light">Cancel</a>
+                                <a href="{{ route('access') }}" class="btn btn-primary waves-effect waves-light">Cancel</a>
                             </div>
                         </div>
                     </form>
@@ -72,4 +71,37 @@ Update Access
 @endsection
 
 @section('scripts')
+<script>
+    $(document).ready(function () {
+        var form = $('.ajax-form');
+        form.submit(function (e) {
+            $('.ajax-form').removeClass('was-validated');
+            $('.invalid-feedback').css({ "display": "none" });
+            $('.invalid-feedback').html('');
+            $.ajax({
+                url: form.attr('action'),
+                type: form.attr('method'),
+                data: new FormData($(this)[0]),
+                dataType: 'json',
+                async: false,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    return true;
+                },
+                error: function (response) {
+                    e.preventDefault();
+                    if (response.status === 422) {
+                        var errors = response.responseJSON;
+                        $.each(errors.errors, function (key, value) {
+                            $('.ajax-form').addClass('was-validated');
+                            $('.invalid-feedback-' + key).css({ "display": "block" });
+                            $('.invalid-feedback-' + key).html(value[0]);
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
 @endsection

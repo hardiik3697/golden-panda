@@ -17,7 +17,7 @@ Update Permission
             <div class="card">
                 <h5 class="card-header">Update Permission</h5>
                 <div class="card-body">
-                    <form action="{{ route('permission.update') }}" name="form" id="form" method="post" class="needs-validation ajax-form" novalidate="">
+                    <form action="{{ route('permission.alter') }}" name="form" id="form" method="post" class="needs-validation ajax-form" novalidate="">
                         <input type="hidden" name="id" value="{{ $data->id }}">
                         
                         @csrf

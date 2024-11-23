@@ -9,13 +9,16 @@ use Illuminate\Support\Str;
 use Auth, DB, Validator, File;
 
 class AuthController extends Controller{
+    /** login */
     public function login(Request $request){
         return view('auth.login');
     }
-
+    /** login */
+    
+    /** sigini */
     public function singin(LoginRequest $request){
         if($request->ajax()) { return true; }
-
+        
         $auth = (auth()->attempt(['email' => $request->email, 'password' => $request->password], $request->has('remember')));
 
         if ($auth != false) {
@@ -34,9 +37,12 @@ class AuthController extends Controller{
             return redirect()->route('login')->with('error', 'invalid credentials, please check credentials');
         }
     }
+    /** sigini */
 
+    /** logout */
     public function logout(){
         Auth::logout();
         return redirect()->route('login');
     }
+    /** logout */
 }

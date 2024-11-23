@@ -21,14 +21,14 @@ class AccessController extends Controller{
                         ->addColumn('action', function($data){
                             $return = '<div class="btn-group">';
 
-                            if (auth()->user()->can('access-view')) {
-                                $return .= '<a href="' . route('access.view', ['id' => base64_encode($data->id)]) . '" class="btn btn-sm rounded-pill btn-icon">
+                            if (auth()->user()->can('access-read')) {
+                                $return .= '<a href="' . route('access.read', ['id' => base64_encode($data->id)]) . '" class="btn btn-sm rounded-pill btn-icon">
                                                         <i class="ri-eye-line"></i>
                                                     </a> &nbsp;';
                             }
         
-                            if (auth()->user()->can('access-edit')) {
-                                $return .= '<a href="' . route('access.edit', ['id' => base64_encode($data->id)]) . '" class="btn btn-sm rounded-pill btn-icon">
+                            if (auth()->user()->can('access-update')) {
+                                $return .= '<a href="' . route('access.update', ['id' => base64_encode($data->id)]) . '" class="btn btn-sm rounded-pill btn-icon">
                                                         <i class="ri-edit-box-line"></i>
                                                     </a>';
                             }
@@ -54,8 +54,8 @@ class AccessController extends Controller{
         }
     /** index */
 
-    /** edit */
-        public function edit(Request $request){
+    /** update */
+        public function update(Request $request){
             if(isset($request->id) && $request->id != '' && $request->id != null)
                 $id = base64_decode($request->id);
             else
@@ -75,12 +75,12 @@ class AccessController extends Controller{
             foreach ($role_permissions as $value)
                 $array[] = $value->name;
 
-            return view('access.edit')->with(['data' => $data, 'roles' => $roles, 'permissions' => $permissions, 'role_permissions' => $array]);
+            return view('access.update')->with(['data' => $data, 'roles' => $roles, 'permissions' => $permissions, 'role_permissions' => $array]);
         }
-    /** edit */
-
     /** update */
-        public function update(Request $request){
+
+    /** alter */
+        public function alter(AccessRequest $request){
             if($request->ajax()){ return true ;}
 
             if(empty($request->permissions)){
@@ -96,10 +96,10 @@ class AccessController extends Controller{
             else
                 return redirect()->back()->with('error', 'Failed to update record')->withInput();
         }
-    /** update */
+    /** alter */
 
-    /** view */
-        public function view(Request $request){
+    /** read */
+        public function read(Request $request){
             if(isset($request->id) && $request->id != '' && $request->id != null)
                 $id = base64_decode($request->id);
             else
@@ -108,10 +108,18 @@ class AccessController extends Controller{
             $permissions = Permission::select('id', 'name')->get();
             $roles = Role::select('id', 'name')->get();
             $data = Role::select('id', 'name')->where(['id' => $id])->first();
-            $permission = DB::table('role_has_permissions')->select('permission_id')->where(['role_id' => $id])->get()->toArray();
-            $data->permissions = array_map(function($row) { return $row->permission_id; }, $permission);
+            $role_permissions = DB::table("role_has_permissions as rhp")
+                                    ->join('permissions as p', 'rhp.permission_id', '=', 'p.id')
+                                    ->where("rhp.role_id", $id)
+                                    ->select('p.name')
+                                    ->get()
+                                    ->toArray();
 
-            return view('access.view')->with(['data' => $data, 'roles' => $roles, 'permissions' => $permissions]);
+            $array = [];
+            foreach ($role_permissions as $value)
+                $array[] = $value->name;
+
+            return view('access.read')->with(['data' => $data, 'roles' => $roles, 'permissions' => $permissions, 'role_permissions' => $array]);
         }
-    /** view */
+    /** read */
 }

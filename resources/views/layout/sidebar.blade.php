@@ -63,7 +63,7 @@
                 <div data-i18n="Dashboards">Dashboards</div>
             </a>
         </li>
-        @canany(['role-create', 'role-edit', 'role-view', 'role-delete', 'permission-create', 'permission-edit', 'permission-view', 'permission-delete', 'access-edit', 'access-view'])
+        @canany(['role-create', 'role-read', 'role-update', 'role-delete', 'permission-create', 'permission-read', 'permission-update', 'permission-delete', 'access-read', 'access-update'])
         <li class="menu-item {{ (Request::is('role*') || Request::is('permission*') || Request::is('access*')) ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle waves-effect">
                 <i class="menu-icon tf-icons ri-lock-2-line"></i>

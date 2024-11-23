@@ -14,23 +14,23 @@ class PermissionSeeder extends Seeder{
     public function run(): void{        
         $super_permissions = [
             'role-create',
-            'role-edit',
-            'role-view',
+            'role-read',
+            'role-update',
             'role-delete',
             'permission-create',
-            'permission-edit',
-            'permission-view',
+            'permission-read',
+            'permission-update',
             'permission-delete',
-            'setting-view',
-            'setting-edit',
-            'access-view',
-            'access-edit',
+            'setting-read',
+            'setting-update',
+            'access-read',
+            'access-update',
         ];
         
         $admin_permissions = [
             'user-create',
-            'user-edit',
-            'user-view',
+            'user-read',
+            'user-update',
             'user-delete'
         ];
 

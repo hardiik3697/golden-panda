@@ -20,14 +20,14 @@ class PermissionController extends Controller{
                         ->addColumn('action', function($data){
                             $return = '<div class="btn-group">';
 
-                            if (auth()->user()->can('permission-view')) {
-                                $return .= '<a href="' . route('permission.view', ['id' => base64_encode($data->id)]) . '" class="btn btn-sm rounded-pill btn-icon">
+                            if (auth()->user()->can('permission-read')) {
+                                $return .= '<a href="' . route('permission.read', ['id' => base64_encode($data->id)]) . '" class="btn btn-sm rounded-pill btn-icon">
                                                         <i class="ri-eye-line"></i>
                                                     </a> &nbsp;';
                             }
         
-                            if (auth()->user()->can('permission-edit')) {
-                                $return .= '<a href="' . route('permission.edit', ['id' => base64_encode($data->id)]) . '" class="btn btn-sm rounded-pill btn-icon">
+                            if (auth()->user()->can('permission-update')) {
+                                $return .= '<a href="' . route('permission.update', ['id' => base64_encode($data->id)]) . '" class="btn btn-sm rounded-pill btn-icon">
                                                         <i class="ri-edit-box-line"></i>
                                                     </a>';
                             }
@@ -76,8 +76,8 @@ class PermissionController extends Controller{
         }
     /** insert */
 
-    /** edit */ 
-        public function edit(Request $request){
+    /** update */ 
+        public function update(Request $request){
             if(isset($request->id) && $request->id != '' && $request->id != null)
                 $id = base64_decode($request->id);
             else
@@ -85,12 +85,12 @@ class PermissionController extends Controller{
 
             $data = Permission::find($id);
 
-            return view('permission.edit')->with(['data' => $data]);
+            return view('permission.update')->with(['data' => $data]);
         }
-    /** edit */
-
     /** update */
-        public function update(PermissionRequest $request){
+
+    /** alter */
+        public function alter(PermissionRequest $request){
             if($request->ajax()){ return true ;}
 
             $curd = [
@@ -106,10 +106,10 @@ class PermissionController extends Controller{
             else
                 return redirect()->back()->with('error', 'Failed to update record')->withInput();
         }
-    /** update */
+    /** alter */
 
-    /** view */
-        public function view(Request $request){
+    /** read */
+        public function read(Request $request){
             if(isset($request->id) && $request->id != '' && $request->id != null)
                 $id = base64_decode($request->id);
             else
@@ -117,9 +117,9 @@ class PermissionController extends Controller{
 
             $data = Permission::find($id);
 
-            return view('permission.view')->with(['data' => $data]);
+            return view('permission.read')->with(['data' => $data]);
         }
-    /** view */
+    /** read */
 
     /** delete */
         public function delete(Request $request){
