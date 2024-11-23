@@ -7,12 +7,14 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-class PermissionSeeder extends Seeder{
+class PermissionSeeder extends Seeder
+{
     /**
      * Run the database seeds.
      */
-    public function run(): void{        
-        $super_permissions = [
+    public function run(): void
+    {
+        $superPermissions = [
             'role-create',
             'role-read',
             'role-update',
@@ -26,21 +28,22 @@ class PermissionSeeder extends Seeder{
             'access-read',
             'access-update',
         ];
-        
-        $admin_permissions = [
+
+        $adminPermissions = [
             'user-create',
             'user-read',
             'user-update',
             'user-delete'
         ];
 
-        $employee_permissions = [];
-        $guest_permissions = [];
+        $employeePermissions = [];
+        $guestPermissions = [];
 
-        $permissions = array_merge($admin_permissions, $super_permissions);
+        $permissions = array_merge($adminPermissions, $superPermissions);
         // $permissions = array_merge($admin_permissions, $super_permissions, $employee_permissions, $guest_permissions);
 
-        foreach ($permissions as $permission) {
+        foreach ($permissions as $permission) 
+        {
             Permission::create(['name' => $permission, 'guard_name' => 'web']);
         }
 
@@ -48,6 +51,6 @@ class PermissionSeeder extends Seeder{
         $super->givePermissionTo($permissions);
 
         $admin = Role::findByName('admin');
-        $admin->givePermissionTo($admin_permissions);
+        $admin->givePermissionTo($adminPermissions);
     }
 }

@@ -2,64 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\company;
 use Illuminate\Http\Request;
+use App\Models\company;
 
-class CompanyController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+class CompanyController extends Controller{
+    /** index */
+    public function index(Request $request){
+        return view('company.index');   
     }
+    /** index */
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    /** create */
+    public function create(Request $request){
+        return view('company.create');
     }
+    /** create */
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    /** insert */
+    public function insert(Request $request){
+        
     }
+    /** insert */
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(company $company)
-    {
-        //
+    /** update */
+    public function update(Request $request){
+        return view('company.update');
     }
+    /** update */
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(company $company)
-    {
-        //
+    /** alter */
+    public function alter(Request $request){
+    
     }
+    /** alter */
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, company $company)
-    {
-        //
+    /** read */
+    public function read(Request $request){
+        return view('company.read');
     }
+    /** read */
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(company $company)
-    {
-        //
+    /** delete */
+    public function delete(Request $request){
+    
     }
+    /** delete */
 }

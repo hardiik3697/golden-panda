@@ -70,21 +70,27 @@
                 <div data-i18n="Access Control">Access Control</div>
             </a>
             <ul class="menu-sub">
+                @canany(['role-create', 'role-read', 'role-update', 'role-delete'])
                 <li class="menu-item {{ Request::is('role*') ? 'active' : '' }}">
                     <a href="{{ route('role') }}" class="menu-link">
                         <div data-i18n="Roles">Roles</div>
                     </a>
                 </li>
+                @endcanany
+                @canany(['permission-create', 'permission-read', 'permission-update', 'permission-delete'])
                 <li class="menu-item {{ Request::is('permission*') ? 'active' : '' }}">
                     <a href="{{ route('permission') }}" class="menu-link">
                         <div data-i18n="Permissions">Permissions</div>
                     </a>
                 </li>
+                @endcanany
+                @canany(['access-read', 'access-update'])
                 <li class="menu-item {{ Request::is('access*') ? 'active' : '' }}">
                     <a href="{{ route('access') }}" class="menu-link">
                         <div data-i18n="Access">Access</div>
                     </a>
                 </li>
+                @endcanany
             </ul>
         </li>
         @endcanany
