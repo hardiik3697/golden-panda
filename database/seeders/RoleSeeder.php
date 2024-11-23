@@ -11,7 +11,7 @@ class RoleSeeder extends Seeder{
      * Run the database seeds.
      */
     public function run(): void{
-        $roles = ['super', 'admin', 'employee', 'guest'];
+        $roles = ['super', 'admin', 'manager', 'employee', 'guest'];
 
         foreach ($roles as $role) {
             Role::create(['name' => $role, 'guard_name' => 'web', 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s')]);

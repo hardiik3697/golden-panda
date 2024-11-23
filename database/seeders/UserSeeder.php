@@ -15,57 +15,73 @@ class UserSeeder extends Seeder{
                     [
                         'firstname' => 'Super',
                         'lastname' => 'Admin',
-                        'username' => 'superadmin',
+                        'username' => 'super',
                         'phone' => '7897897891',
                         'email' => 'superadmin@example.com',
                         'role' => 'super'
                     ],
                     [
                         'firstname' => 'Mitul',
-                        'lastname' => 'Gajjar',
-                        'username' => 'mitulgajjar',
+                        'lastname' => 'admin',
+                        'username' => 'mituladmin',
                         'phone' => '7897897892',
-                        'email' => 'mitul@example.com',
+                        'email' => 'mitul@admin.com',
                         'role' => 'admin'
                     ],
                     [
-                        'firstname' => 'HardIIk',
-                        'lastname' => 'Patel',
-                        'username' => 'hardikpatel',
+                        'firstname' => 'Hardik',
+                        'lastname' => 'admin',
+                        'username' => 'hardikadmin',
                         'phone' => '7897897893',
-                        'email' => 'hardik@example.com',
+                        'email' => 'hardik@admin.com',
                         'role' => 'admin'
                     ],
                     [
-                        'firstname' => 'Brijesh',
-                        'lastname' => 'Patel',
-                        'username' => 'brijeshpatel',
-                        'phone' => '7897897893',
-                        'email' => 'brijesh@example.com',
+                        'firstname' => 'Mitul',
+                        'lastname' => 'manager',
+                        'username' => 'mitulmanager',
+                        'phone' => '7897890001',
+                        'email' => 'mitul@manager.com',
+                        'role' => 'manager'
+                    ],
+                    [
+                        'firstname' => 'Hardik',
+                        'lastname' => 'manager',
+                        'username' => 'hardikmanager',
+                        'phone' => '7897890002',
+                        'email' => 'hardik@manager.com',
+                        'role' => 'manager'
+                    ],
+                    [
+                        'firstname' => 'Mitul',
+                        'lastname' => 'employee',
+                        'username' => 'mitulemployee',
+                        'phone' => '7897890011',
+                        'email' => 'mitul@employee.com',
                         'role' => 'employee'
                     ],
                     [
-                        'firstname' => 'Kiran',
-                        'lastname' => 'Patel',
-                        'username' => 'kiranpatel',
-                        'phone' => '7897897894',
-                        'email' => 'kiran@example.com',
+                        'firstname' => 'Hardik',
+                        'lastname' => 'employee',
+                        'username' => 'hardikemployee',
+                        'phone' => '7897890022',
+                        'email' => 'hardik@employee.com',
                         'role' => 'employee'
                     ],
                     [
-                        'firstname' => 'Sani',
-                        'lastname' => 'Patel',
-                        'username' => 'sanipatel',
-                        'phone' => '7897897895',
-                        'email' => 'sani@example.com',
+                        'firstname' => 'Mitul',
+                        'lastname' => 'guest',
+                        'username' => 'mitulguest',
+                        'phone' => '7897890111',
+                        'email' => 'mitul@guest.com',
                         'role' => 'guest'
                     ],
                     [
-                        'firstname' => 'Jaydeep',
-                        'lastname' => 'Patel',
-                        'username' => 'jaydeeppatel',
-                        'phone' => '7897897896',
-                        'email' => 'jaydeep@example.com',
+                        'firstname' => 'Hardik',
+                        'lastname' => 'guest',
+                        'username' => 'hardikguest',
+                        'phone' => '7897890222',
+                        'email' => 'hardik@guest.com',
                         'role' => 'guest'
                     ]
                 ];
