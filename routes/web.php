@@ -16,7 +16,12 @@ Route::group(['middleware' => ['prevent-back-history']], function(){
 
     Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
-        Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+        Route::get('profile', [DashboardController::class, 'profile'])->name('profile');
+        Route::get('profile-update', [DashboardController::class, 'profileUpdate'])->name('profile.update');
+        Route::post('update-profile', [DashboardController::class, 'updateProfile'])->name('update.profile');
+        Route::get('change-password', [DashboardController::class, 'changePassword'])->name('change.password');
+        Route::post('password-change', [DashboardController::class, 'passwordChange'])->name('password.change');
+        Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
         /** access control */
             /** role */

@@ -109,8 +109,8 @@ class UserSeeder extends Seeder{
         if (!File::exists($file_to_upload))
             File::makeDirectory($file_to_upload, 0777, true, true);
 
-        if(file_exists(public_path('/assets/images/users/profile-pic.png')) && !file_exists(public_path('/uploads/users/user-icon.png')) ){
-            File::copy(public_path('/assets/images/users/profile-pic.png'), public_path('/uploads/users/user-icon.png'));
+        if(file_exists(public_path('/dummy/profile-pic.png')) && !file_exists(public_path('/uploads/users/user-icon.png')) ){
+            File::copy(public_path('/dummy/profile-pic.png'), public_path('/uploads/users/user-icon.png'));
         }
     }
 }

@@ -25,7 +25,7 @@ Dashboard
                         <div class="card-body">
                             <h4 class="card-title mb-4">Welcome <span class="fw-bold">{{ auth()->user()->firstname ?? 'John' }} {{ auth()->user()->lastname ?? 'Doe' }}</span> 🎉</h4>
                             <p>Check your profile.</p>
-                            <a href="javascript:;" class="btn btn-primary">View Profile</a>
+                            <a href="{{ route('profile') }}" class="btn btn-primary">View Profile</a>
                         </div>
                     </div>
                 </div>
