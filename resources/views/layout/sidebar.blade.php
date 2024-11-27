@@ -1,4 +1,3 @@
-<!-- Menu -->
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
         <a href="{{ _settings('SITE_URL') }}" class="app-brand-link">
@@ -41,14 +40,10 @@
             <span class="app-brand-text demo menu-text fw-semibold ms-2">{{ _settings('SITE_TITLE') }}</span>
         </a>
 
-        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+        <a href="{{ _settings('SITE_URL') }}" class="layout-menu-toggle menu-link text-large ms-auto">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M8.47365 11.7183C8.11707 12.0749 8.11707 12.6531 8.47365 13.0097L12.071 16.607C12.4615 16.9975 12.4615 17.6305 12.071 18.021C11.6805 18.4115 11.0475 18.4115 10.657 18.021L5.83009 13.1941C5.37164 12.7356 5.37164 11.9924 5.83009 11.5339L10.657 6.707C11.0475 6.31653 11.6805 6.31653 12.071 6.707C12.4615 7.09747 12.4615 7.73053 12.071 8.121L8.47365 11.7183Z"
-                    fill-opacity="0.9" />
-                <path
-                    d="M14.3584 11.8336C14.0654 12.1266 14.0654 12.6014 14.3584 12.8944L18.071 16.607C18.4615 16.9975 18.4615 17.6305 18.071 18.021C17.6805 18.4115 17.0475 18.4115 16.657 18.021L11.6819 13.0459C11.3053 12.6693 11.3053 12.0587 11.6819 11.6821L16.657 6.707C17.0475 6.31653 17.6805 6.31653 18.071 6.707C18.4615 7.09747 18.4615 7.73053 18.071 8.121L14.3584 11.8336Z"
-                    fill-opacity="0.4" />
+                <path d="M8.47365 11.7183C8.11707 12.0749 8.11707 12.6531 8.47365 13.0097L12.071 16.607C12.4615 16.9975 12.4615 17.6305 12.071 18.021C11.6805 18.4115 11.0475 18.4115 10.657 18.021L5.83009 13.1941C5.37164 12.7356 5.37164 11.9924 5.83009 11.5339L10.657 6.707C11.0475 6.31653 11.6805 6.31653 12.071 6.707C12.4615 7.09747 12.4615 7.73053 12.071 8.121L8.47365 11.7183Z" fill-opacity="0.9" />
+                <path d="M14.3584 11.8336C14.0654 12.1266 14.0654 12.6014 14.3584 12.8944L18.071 16.607C18.4615 16.9975 18.4615 17.6305 18.071 18.021C17.6805 18.4115 17.0475 18.4115 16.657 18.021L11.6819 13.0459C11.3053 12.6693 11.3053 12.0587 11.6819 11.6821L16.657 6.707C17.0475 6.31653 17.6805 6.31653 18.071 6.707C18.4615 7.09747 18.4615 7.73053 18.071 8.121L14.3584 11.8336Z" fill-opacity="0.4" />
             </svg>
         </a>
     </div>
@@ -56,44 +51,58 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-        <!-- Dashboards -->
         <li class="menu-item {{ Request::is('/') ? 'active' : '' }}">
             <a href="{{ _settings('SITE_URL') }}" class="menu-link">
                 <i class="menu-icon tf-icons ri-home-smile-line"></i>
-                <div data-i18n="Dashboards">Dashboards</div>
+                <div>Dashboard</div>
             </a>
         </li>
         @canany(['role-create', 'role-read', 'role-update', 'role-delete', 'permission-create', 'permission-read', 'permission-update', 'permission-delete', 'access-read', 'access-update'])
         <li class="menu-item {{ (Request::is('role*') || Request::is('permission*') || Request::is('access*')) ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle waves-effect">
                 <i class="menu-icon tf-icons ri-lock-2-line"></i>
-                <div data-i18n="Access Control">Access Control</div>
+                <div>Access Control</div>
             </a>
             <ul class="menu-sub">
                 @canany(['role-create', 'role-read', 'role-update', 'role-delete'])
                 <li class="menu-item {{ Request::is('role*') ? 'active' : '' }}">
                     <a href="{{ route('role') }}" class="menu-link">
-                        <div data-i18n="Roles">Roles</div>
+                        <div>Roles</div>
                     </a>
                 </li>
                 @endcanany
                 @canany(['permission-create', 'permission-read', 'permission-update', 'permission-delete'])
                 <li class="menu-item {{ Request::is('permission*') ? 'active' : '' }}">
                     <a href="{{ route('permission') }}" class="menu-link">
-                        <div data-i18n="Permissions">Permissions</div>
+                        <div>Permissions</div>
                     </a>
                 </li>
                 @endcanany
                 @canany(['access-read', 'access-update'])
                 <li class="menu-item {{ Request::is('access*') ? 'active' : '' }}">
                     <a href="{{ route('access') }}" class="menu-link">
-                        <div data-i18n="Access">Access</div>
+                        <div>Access</div>
                     </a>
                 </li>
                 @endcanany
             </ul>
         </li>
         @endcanany
+        @canany(['user-create', 'user-read', 'user-update', 'user-delete'])
+        <li class="menu-item {{ Request::is('user*') ? 'active' : '' }}">
+            <a href="{{ route('user') }}" class="menu-link">
+                <i class="menu-icon tf-icons ri-group-line"></i>
+                <div>User Management</div>
+            </a>
+        </li>
+        @endcanany
+        @canany(['company-create', 'company-read', 'company-update', 'company-delete'])
+        <li class="menu-item {{ Request::is('company*') ? 'active' : '' }}">
+            <a href="{{ route('company') }}" class="menu-link">
+                <i class="menu-icon tf-icons ri-building-2-line"></i>
+                <div>Company Management</div>
+            </a>
+        </li>
+        @endcanany
     </ul>
 </aside>
-<!-- / Menu -->

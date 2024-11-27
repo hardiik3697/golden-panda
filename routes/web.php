@@ -7,6 +7,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AccessController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CompanyController;
 
 Route::group(['middleware' => ['prevent-back-history']], function(){
     Route::group(['middleware' => 'guest'], function () {
@@ -51,6 +53,26 @@ Route::group(['middleware' => ['prevent-back-history']], function(){
                 Route::get('access/read', [AccessController::class, 'read'])->name('access.read');
             /** access */
         /** access control */
+
+        /** user */
+            Route::any('user', [UserController::class, 'index'])->name('user');
+            Route::get('user/create', [UserController::class, 'create'])->name('user.create');
+            Route::post('user/insert', [UserController::class, 'insert'])->name('user.insert');
+            Route::get('user/update', [UserController::class, 'update'])->name('user.update');
+            Route::patch('user/alter/{id?}', [UserController::class, 'alter'])->name('user.alter');
+            Route::get('user/read', [UserController::class, 'read'])->name('user.read');
+            Route::post('user/status', [UserController::class, 'status'])->name('user.status');
+        /** user */
+
+        /** company */
+            Route::any('company', [CompanyController::class, 'index'])->name('company');
+            Route::get('company/create', [CompanyController::class, 'create'])->name('company.create');
+            Route::post('company/insert', [CompanyController::class, 'insert'])->name('company.insert');
+            Route::get('company/update', [CompanyController::class, 'update'])->name('company.update');
+            Route::patch('company/alter/{id?}', [CompanyController::class, 'alter'])->name('company.alter');
+            Route::get('company/read', [CompanyController::class, 'read'])->name('company.read');
+            Route::post('company/delete', [CompanyController::class, 'delete'])->name('company.delete');
+        /** company */
     });
 
     // this for route anynomus route redirect to login

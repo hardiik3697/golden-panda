@@ -33,7 +33,11 @@ class PermissionSeeder extends Seeder
             'user-create',
             'user-read',
             'user-update',
-            'user-delete'
+            'user-delete',
+            'company-create',
+            'company-read',
+            'company-update',
+            'company-delete',
         ];
 
         $employeePermissions = [];
