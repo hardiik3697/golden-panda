@@ -32,7 +32,8 @@ Change Password
             <div class="card mb-6">
                 <h5 class="card-header">Change Password</h5>
                 <div class="card-body pt-1">
-                    <form action="{{ route('password.change') }}" name="form" id="form" class="form" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('password.insert') }}" method="post" name="form" id="form" class="needs-validation form" novalidate enctype="multipart/form-data">
+
                         @csrf
                         @method('POST')
 
@@ -40,7 +41,7 @@ Change Password
                             <div class="mb-5 col-md-6 form-password-toggle fv-plugins-icon-container">
                                 <div class="input-group input-group-merge">
                                     <div class="form-floating form-floating-outline">
-                                        <input class="form-control" type="password" name="currentPassword" id="currentPassword" placeholder="············">
+                                        <input type="password" name="currentPassword" id="currentPassword" class="form-control" />
                                         <label for="currentPassword">Current Password</label>
                                     </div>
                                     <span class="input-group-text cursor-pointer"><i class="ri-eye-off-line"></i></span>
@@ -52,7 +53,7 @@ Change Password
                             <div class="col-md-6 form-password-toggle fv-plugins-icon-container">
                                 <div class="input-group input-group-merge">
                                     <div class="form-floating form-floating-outline">
-                                        <input class="form-control" type="password" id="newPassword" name="newPassword" placeholder="············">
+                                        <input type="password" name="newPassword" id="newPassword" class="form-control" />
                                         <label for="newPassword">New Password</label>
                                     </div>
                                     <span class="input-group-text cursor-pointer"><i class="ri-eye-off-line"></i></span>
@@ -62,7 +63,7 @@ Change Password
                             <div class="col-md-6 form-password-toggle fv-plugins-icon-container">
                                 <div class="input-group input-group-merge">
                                     <div class="form-floating form-floating-outline">
-                                        <input class="form-control" type="password" name="confirmPassword" id="confirmPassword" placeholder="············">
+                                        <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" />
                                         <label for="confirmPassword">Confirm New Password</label>
                                     </div>
                                     <span class="input-group-text cursor-pointer"><i class="ri-eye-off-line"></i></span>

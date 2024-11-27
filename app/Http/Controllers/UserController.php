@@ -132,7 +132,7 @@ class UserController extends Controller{
             }else{
                 $data['photo'] = 'user-icon.png';
             }
-dd($request->all());
+
             DB::beginTransaction();
             try {
                 $user = User::create($data);

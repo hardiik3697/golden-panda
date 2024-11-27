@@ -17,11 +17,12 @@ New Role
             <div class="card">
                 <h5 class="card-header">New Role</h5>
                 <div class="card-body">
-                    <form action="{{ route('role.insert') }}" name="form" id="form" method="post" class="needs-validation ajax-form" novalidate="">
+                    <form action="{{ route('role.insert') }}" method="post" name="form" id="form" class="needs-validation form" novalidate enctype="multipart/form-data">
                         @csrf
                         @method('post')
+    
                         <div class="form-floating form-floating-outline mb-6">
-                            <input name="name" type="text" value="{{ @old('name') }}" id="name" class="form-control" placeholder="Employee / Guest" >
+                            <input type="text" name="name" id="name" class="form-control" value="{{ @old('name') }}" />
                             <label for="bs-validation-name">Name</label>
                             <div class="invalid-feedback invalid-feedback-name"></div>
                         </div>
@@ -48,7 +49,7 @@ New Role
                         <div class="row">
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
-                                <a href="{{ route('role') }}" class="btn btn-primary waves-effect waves-light">Cancel</a>
+                                <a href="{{ URL::previous() }}" class="btn btn-outline-secondary waves-effect">Back</a>
                             </div>
                         </div>
                     </form>
@@ -62,9 +63,9 @@ New Role
 @section('scripts')
 <script>
     $(document).ready(function () {
-        var form = $('.ajax-form');
+        var form = $('.form');
         form.submit(function (e) {
-            $('.ajax-form').removeClass('was-validated');
+            $('.form').removeClass('was-validated');
             $('.invalid-feedback').css({"display": "none"});
             $('.invalid-feedback').html('');
             $.ajax({
@@ -83,7 +84,7 @@ New Role
                     if (response.status === 422) {
                         var errors = response.responseJSON;
                         $.each(errors.errors, function (key, value) {
-                            $('.ajax-form').addClass('was-validated');
+                            $('.form').addClass('was-validated');
                             $('.invalid-feedback-'+key).css({"display": "block"});
                             $('.invalid-feedback-'+key).html(value[0]);
                         });
