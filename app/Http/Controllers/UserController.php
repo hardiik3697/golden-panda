@@ -63,7 +63,7 @@ class UserController extends Controller{
                     })
 
                     ->editColumn('profile', function ($data) {
-                        $image = '<img src="'.URL('/uploads/users/user-icon.jpg').'" alt="user-icon" class="rounded-circle" width="45" height="45">';
+                        $image = '<img src="'.URL('/uploads/users/user-icon.png').'" alt="user-icon" class="rounded-circle" width="45" height="45">';
 
                         if($data->photo != '' || $data->photo != null)
                             $image =  '<img src="'.URL('/uploads/users/')."/".$data->photo.'" alt="user-icon" class="rounded-circle" width="45" height="45">';
@@ -130,9 +130,9 @@ class UserController extends Controller{
 
                 $data['photo'] = $filenameToStore;
             }else{
-                $data['photo'] = 'user-icon.jpg';
+                $data['photo'] = 'user-icon.png';
             }
-
+dd($request->all());
             DB::beginTransaction();
             try {
                 $user = User::create($data);
@@ -149,6 +149,7 @@ class UserController extends Controller{
                     return redirect()->back()->with('error', 'Failed to insert record')->withInput();
                 }
             } catch (\Throwable $th) {
+                dd('456');
                 DB::rollback();
                 return redirect()->back()->with('error', 'Something went wrong, please try again later')->withInput();
             }
@@ -168,7 +169,7 @@ class UserController extends Controller{
             $data = User::select('id', 'firstname', 'lastname', 'username', 'email', 'phone', 'password',
                                     DB::Raw("CASE
                                         WHEN ".'photo'." != '' THEN CONCAT("."'".$path."'".", ".'photo'.")
-                                        ELSE CONCAT("."'".$path."'".", 'user-icon.jpg')
+                                        ELSE CONCAT("."'".$path."'".", 'user-icon.png')
                                     END as photo")
                                 )
                             ->where(['id' => $id])
@@ -226,7 +227,7 @@ class UserController extends Controller{
                         $file_path = public_path().'/uploads/users/'.$exst_rec->photo;
 
                         if(File::exists($file_path) && $file_path != ''){
-                            if($data['photo'] != 'user-icon.jpg'){
+                            if($data['photo'] != 'user-icon.png'){
                                 @unlink($file_path);
                             }
                         }
@@ -261,7 +262,7 @@ class UserController extends Controller{
             $data = User::select( 'id', 'firstname', 'lastname', 'username', 'email', 'phone', 'password', 
                                     DB::Raw("CASE
                                         WHEN ".'photo'." != '' THEN CONCAT("."'".$path."'".", ".'photo'.")
-                                        ELSE CONCAT("."'".$path."'".", 'user-icon.jpg')
+                                        ELSE CONCAT("."'".$path."'".", 'user-icon.png')
                                     END as photo")
                                 )
                                 ->where(['id' => $id])
