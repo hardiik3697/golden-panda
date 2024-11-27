@@ -12,8 +12,6 @@ $(function () {
 
     axios.post(url, data) // Pass the FormData directly
         .then(response => {
-            console.log(response.data); // Log the response data
-            debugger
             window.location.href = APP_URL + 'dashboard'
         })
         .catch(error => {

@@ -9,6 +9,7 @@
 <script src="{{ asset('assets/vendor/libs/i18n/i18n.js') }}"></script>
 <script src="{{ asset('assets/vendor/libs/typeahead-js/typeahead.js') }}"></script>
 <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
+<script src="{{ asset('assets/vendor/js/toastr.js') }}"></script>
 
 <!-- endbuild -->
 
@@ -21,4 +22,28 @@
 <script>
     const APP_URL = "{{ config('env.APP_URL') }}";
  </script>
+
+<script>
+    @php
+        $success = '';
+        if(\Session::has('success'))
+            $success = \Session::get('success');
+
+        $error = '';
+        if(\Session::has('error'))
+            $error = \Session::get('error');
+    @endphp
+
+    var success = "{{ $success }}";
+    var error = "{{ $error }}";
+    console.log(error);
+    if(success != ''){
+        toastr.success(success, 'Success');
+    }
+
+    if(error != ''){
+        toastr.error(error, 'error');
+    }
+</script>
+
 @yield('scripts')

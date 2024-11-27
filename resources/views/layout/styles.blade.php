@@ -24,5 +24,6 @@
 <link rel="stylesheet" href="{{ asset('assets/vendor/libs/typeahead-js/typeahead.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/vendor/libs/swiper/swiper.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/vendor/css/toastr.css') }}" />
 
 @yield('styles')

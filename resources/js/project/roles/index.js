@@ -1,6 +1,6 @@
 import axios from "axios";
+var datatable;
 $(function () {
-    var datatable;
     const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
     if ($('#datatables').length > 0) {
         datatable = $('#datatables').DataTable({
@@ -52,18 +52,27 @@ $(function () {
         $('#role-form-subtitle').html('Add a role provided access to predefined menus.');
         $('#modelFormId').remove();
     })
-    .on('click', '.edit-role', function () {
-        var value = $(this).data('value');
-        var id = $(this).data('id');
-        $('#addEditRole').modal('show');
-        $('#role-form-title').html('Edit Roles');
-        $('#role-form-subtitle').html('Edit a role provided access to predefined menus.');
-        $('#modalRoleName').val(value);
-        $('#modalRoleGuard').val('web');
-
-        $('#addEditRoleForm').append('<input type="hidden" id="modelFormId" name="id" value="' + id + '"/>')
-    })
-    .on('click', '#addEditRoleSubmit', function (e) {
+    .on('click', '.delete-role', function (e) {
         e.preventDefault();
-        $('#addEditRoleForm')[0].reset();
+
+        var id = $(this).data('id');
+        var url = `${APP_URL}roles/delete/${id}`;
+
+        const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+
+        axios.get(url)
+            .then(response => {
+                console.log(response.status);
+                if (response.status == 200) {
+                    toastr.success(response.data.message, "Success");
+                } else {
+                    toastr.error("Something went wrong!", "Error");
+                }
+                datatable.ajax.reload();
+            })
+            .catch(error => {
+                datatable.ajax.reload();
+                console.error(error);
+            });
     });

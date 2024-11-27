@@ -4,7 +4,7 @@
 @endsection
 
 @section('title')
-Dashboard
+Roles {{ $title }}
 @endsection
 
 @section('styles')
@@ -22,10 +22,13 @@ Dashboard
 <div class="container-xxl flex-grow-1 container-p-y">
     <!-- DataTable with Buttons -->
     <div class="card">
-        <div class="col-xl-12 p-6 pt-xl-4 text-end">
-            <button id="add-roles" type="button" class="btn btn-outline-primary me-2 waves-effect">
-                Add Roles+
-            </button>
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Roles {{$title}}</h5>
+            <div class="col-xl-6 text-end">
+                <a href="{{ route('roles.create') }}" id="add-roles" type="button" class="btn btn-outline-primary me-2 waves-effect">
+                    Add Roles+
+                </a>
+            </div>
         </div>
         <div class="card-datatable table-responsive pt-0">
             <table id="datatables" class="datatables-basic table table-bordered">
