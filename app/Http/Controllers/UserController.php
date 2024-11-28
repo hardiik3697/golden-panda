@@ -104,7 +104,7 @@ class UserController extends Controller{
 
             $data = [
                 'firstname' => ucfirst($request->firstname),
-                'lasttname' => ucfirst($request->lastname),
+                'lastname' => ucfirst($request->lastname),
                 'username' => $request->username ?? '',
                 'email' => $request->email,
                 'phone' => $request->phone ?? '',
@@ -141,7 +141,7 @@ class UserController extends Controller{
                 if($user){
                     if (!empty($request->file('photo')))
                         $file->move($folder_to_upload, $filenameToStore);
-                  
+
                     DB::commit();
                     return redirect()->route('user')->with('success', 'Record inserted successfully');
                 } else {
@@ -175,7 +175,7 @@ class UserController extends Controller{
                             ->where(['id' => $id])
                             ->first();
 
-            return view('user.edit')->with(['data' => $data, 'roles' => $roles]);
+            return view('user.update')->with(['data' => $data, 'roles' => $roles]);
         }
     /** update */
 
@@ -188,10 +188,10 @@ class UserController extends Controller{
 
             $data = [
                 'firstname' => ucfirst($request->firstname),
-                'lastname' => ucfirst($request->lasttname),
-                'username' => $request->username ?? $exst_rec->username,
+                'lastname' => ucfirst($request->lastname),
+                'username' => $request->username,
                 'email' => $request->email,
-                'phone' => $request->phone ?? $exst_rec->phone,
+                'phone' => $request->phone,
                 'updated_at' => date('Y-m-d H:i:s'),
                 'updated_by' => auth()->user()->id
             ];
@@ -227,7 +227,7 @@ class UserController extends Controller{
                         $file_path = public_path().'/uploads/users/'.$exst_rec->photo;
 
                         if(File::exists($file_path) && $file_path != ''){
-                            if($data['photo'] != 'user-icon.png'){
+                            if($exst_rec->photo != 'user-icon.png'){
                                 @unlink($file_path);
                             }
                         }
@@ -259,7 +259,7 @@ class UserController extends Controller{
 
             $roles = Role::all();
             $path = URL('/uploads/users').'/';
-            $data = User::select( 'id', 'firstname', 'lastname', 'username', 'email', 'phone', 'password', 
+            $data = User::select( 'id', 'firstname', 'lastname', 'username', 'email', 'phone', 'password', 'status',
                                     DB::Raw("CASE
                                         WHEN ".'photo'." != '' THEN CONCAT("."'".$path."'".", ".'photo'.")
                                         ELSE CONCAT("."'".$path."'".", 'user-icon.png')
@@ -284,7 +284,7 @@ class UserController extends Controller{
 
                 if(!empty($data)){
                     $process = User::where(['id' => $id])->update(['status' => $status, 'updated_by' => auth()->user()->id]);
-                    
+
                     if($process)
                         return response()->json(['code' => 200]);
                     else
