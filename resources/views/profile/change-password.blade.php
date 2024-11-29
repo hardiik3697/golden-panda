@@ -32,7 +32,7 @@ Change Password
             <div class="card mb-6">
                 <h5 class="card-header">Change Password</h5>
                 <div class="card-body pt-1">
-                    <form action="{{ route('password.insert') }}" method="post" name="form" id="form" class="needs-validation form" novalidate enctype="multipart/form-data">
+                    <form action="{{ route('password.change') }}" method="post" name="form" id="form" class="needs-validation form" novalidate enctype="multipart/form-data">
 
                         @csrf
                         @method('POST')

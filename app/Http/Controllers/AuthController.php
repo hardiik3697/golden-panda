@@ -14,11 +14,11 @@ class AuthController extends Controller{
         return view('auth.login');
     }
     /** login */
-    
+
     /** sigini */
     public function singin(LoginRequest $request){
         if($request->ajax()) { return true; }
-        
+
         $auth = (auth()->attempt(['email' => $request->email, 'password' => $request->password], $request->has('remember')));
 
         if ($auth != false) {

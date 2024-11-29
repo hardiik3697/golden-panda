@@ -17,61 +17,76 @@ Route::group(['middleware' => ['prevent-back-history']], function(){
     });
 
     Route::group(['middleware' => ['auth']], function () {
-        Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
-        Route::get('profile', [DashboardController::class, 'profile'])->name('profile');
-        Route::get('profile-update', [DashboardController::class, 'profileUpdate'])->name('profile.update');
-        Route::post('update-profile', [DashboardController::class, 'updateProfile'])->name('update.profile');
-        Route::get('change-password', [DashboardController::class, 'changePassword'])->name('change.password');
-        Route::post('password-change', [DashboardController::class, 'passwordChange'])->name('password.change');
-        Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+        /** Dashboard */
+            Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+            Route::controller(DashboardController::class)->group(function () {
+                Route::get('/dashboard', 'dashboard')->name('dashboard');
+                Route::get('profile', 'profile')->name('profile');
+                Route::get('profile-update', 'profileUpdate')->name('profile.update');
+                Route::post('update-profile', 'updateProfile')->name('update.profile');
+                Route::get('change-password', 'changePassword')->name('change.password');
+                Route::post('password-change', 'passwordChange')->name('password.change');
+            });
+        /** Dashboard */
 
         /** access control */
             /** role */
-                Route::any('role', [RoleController::class, 'index'])->name('role');
-                Route::get('role/create', [RoleController::class, 'create'])->name('role.create');
-                Route::post('role/insert', [RoleController::class, 'insert'])->name('role.insert');
-                Route::get('role/update', [RoleController::class, 'update'])->name('role.update');
-                Route::patch('role/alter/{id?}', [RoleController::class, 'alter'])->name('role.alter');
-                Route::get('role/read', [RoleController::class, 'read'])->name('role.read');
-                Route::post('role/delete', [RoleController::class, 'delete'])->name('role.delete');
+                Route::controller(RoleController::class)->group(function () {
+                    Route::any('role', 'index')->name('role');
+                    Route::get('role/create', 'create')->name('role.create');
+                    Route::post('role/insert', 'insert')->name('role.insert');
+                    Route::get('role/update', 'update')->name('role.update');
+                    Route::patch('role/alter/{id?}', 'alter')->name('role.alter');
+                    Route::get('role/read', 'read')->name('role.read');
+                    Route::post('role/delete', 'delete')->name('role.delete');
+                });
             /** role */
 
             /** permission */
-                Route::any('permission', [PermissionController::class, 'index'])->name('permission');
-                Route::get('permission/create', [PermissionController::class, 'create'])->name('permission.create');
-                Route::post('permission/insert', [PermissionController::class, 'insert'])->name('permission.insert');
-                Route::get('permission/update', [PermissionController::class, 'update'])->name('permission.update');
-                Route::patch('permission/alter/{id?}', [PermissionController::class, 'alter'])->name('permission.alter');
-                Route::get('permission/read', [PermissionController::class, 'read'])->name('permission.read');
-                Route::post('permission/delete', [PermissionController::class, 'delete'])->name('permission.delete');
+                Route::controller(PermissionController::class)->group(function () {
+                    Route::any('permission', 'index')->name('permission');
+                    Route::get('permission/create', 'create')->name('permission.create');
+                    Route::post('permission/insert', 'insert')->name('permission.insert');
+                    Route::get('permission/update', 'update')->name('permission.update');
+                    Route::patch('permission/alter/{id?}', 'alter')->name('permission.alter');
+                    Route::get('permission/read', 'read')->name('permission.read');
+                    Route::post('permission/delete', 'delete')->name('permission.delete');
+                });
             /** permission */
 
             /** access */
-                Route::any('access', [AccessController::class, 'index'])->name('access');
-                Route::get('access/update', [AccessController::class, 'update'])->name('access.update');
-                Route::patch('access/alter/{id?}', [AccessController::class, 'alter'])->name('access.alter');
-                Route::get('access/read', [AccessController::class, 'read'])->name('access.read');
+                Route::controller(AccessController::class)->group(function () {
+                    Route::any('access', 'index')->name('access');
+                    Route::get('access/update', 'update')->name('access.update');
+                    Route::patch('access/alter/{id?}', 'alter')->name('access.alter');
+                    Route::get('access/read', 'read')->name('access.read');
+                });
             /** access */
         /** access control */
 
         /** user */
-            Route::any('user', [UserController::class, 'index'])->name('user');
-            Route::get('user/create', [UserController::class, 'create'])->name('user.create');
-            Route::post('user/insert', [UserController::class, 'insert'])->name('user.insert');
-            Route::get('user/update/{id?}', [UserController::class, 'update'])->name('user.update');
-            Route::patch('user/alter/{id?}', [UserController::class, 'alter'])->name('user.alter');
-            Route::get('user/read/{id?}', [UserController::class, 'read'])->name('user.read');
-            Route::post('user/status', [UserController::class, 'status'])->name('user.status');
+            Route::controller(UserController::class)->group(function () {
+                Route::any('user', 'index')->name('user');
+                Route::get('user/create', 'create')->name('user.create');
+                Route::post('user/insert', 'insert')->name('user.insert');
+                Route::get('user/update/{id?}', 'update')->name('user.update');
+                Route::patch('user/alter/{id?}', 'alter')->name('user.alter');
+                Route::get('user/read/{id?}', 'read')->name('user.read');
+                Route::post('user/status', 'status')->name('user.status');
+            });
         /** user */
 
         /** company */
-            Route::any('company', [CompanyController::class, 'index'])->name('company');
-            Route::get('company/create', [CompanyController::class, 'create'])->name('company.create');
-            Route::post('company/insert', [CompanyController::class, 'insert'])->name('company.insert');
-            Route::get('company/update/{id?}', [CompanyController::class, 'update'])->name('company.update');
-            Route::patch('company/alter/{id?}', [CompanyController::class, 'alter'])->name('company.alter');
-            Route::get('company/read/{id?}', [CompanyController::class, 'read'])->name('company.read');
-            Route::post('company/delete', [CompanyController::class, 'delete'])->name('company.delete');
+            Route::controller(CompanyController::class)->group(function () {
+                Route::any('company', 'index')->name('company');
+                Route::get('company/create', 'create')->name('company.create');
+                Route::post('company/insert', 'insert')->name('company.insert');
+                Route::get('company/update/{id?}', 'update')->name('company.update');
+                Route::patch('company/alter/{id?}', 'alter')->name('company.alter');
+                Route::get('company/read/{id?}', 'read')->name('company.read');
+                Route::post('company/delete', 'delete')->name('company.delete');
+            });
         /** company */
     });
 
