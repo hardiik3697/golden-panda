@@ -127,19 +127,6 @@ const onSubmit = () => {
             Please sign-in to your account and start the adventure
           </p>
         </VCardText>
-        <VCardText>
-          <VAlert
-            color="primary"
-            variant="tonal"
-          >
-            <p class="text-caption mb-2 text-primary">
-              Admin Email: <strong>admin@demo.com</strong> / Pass: <strong>admin</strong>
-            </p>
-            <p class="text-caption mb-0 text-primary">
-              Client Email: <strong>client@demo.com</strong> / Pass: <strong>client</strong>
-            </p>
-          </VAlert>
-        </VCardText>
 
         <VCardText>
           <VForm
@@ -172,7 +159,7 @@ const onSubmit = () => {
                   :append-inner-icon="isPasswordVisible ? 'ri-eye-off-line' : 'ri-eye-line'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
-
+                
                 <div class="d-flex align-center flex-wrap justify-space-between my-6 gap-x-2">
                   <VCheckbox
                     v-model="rememberMe"
@@ -187,16 +174,6 @@ const onSubmit = () => {
                   Login
                 </VBtn>
               </VCol>
-
-              <!-- create account -->
-              <VCol
-                cols="12"
-                class="d-flex align-center"
-              >
-                <VDivider />
-                <span class="mx-4 text-high-emphasis">or</span>
-                <VDivider />
-              </VCol>
             </VRow>
           </VForm>
         </VCardText>
@@ -206,5 +183,5 @@ const onSubmit = () => {
 </template>
 
 <style lang="scss">
-@use "@core-scss/template/pages/page-auth.scss";
+@use "@core-scss/template/pages/page-auth";
 </style>
