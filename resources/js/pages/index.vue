@@ -1,10 +1,3 @@
-<script setup>
-definePage({
-  meta: {
-    requiresAuth: true,
-  },
-})
-</script>
 
 <template>
   <div>

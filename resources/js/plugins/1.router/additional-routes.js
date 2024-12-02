@@ -12,12 +12,37 @@ export const redirects = [
       const userData = useCookie('userData')
       const userRole = userData.value?.role
       if (userRole === 'admin')
-        return { name: 'dashboards-crm' }
+        return { name: 'index' } // replace with admin dashboard
       if (userRole === 'client')
-        return { name: 'access-control' }
+        return { name: 'index' } // replace with client dashboard
 
       return { name: 'login', query: to.query }
     },
+  },
+  {
+    path: '/dashboard',
+    name: 'index',
+    redirect: to => {
+      // TODO: Get type from backend
+      const userData = useCookie('userData')
+      const userRole = userData.value?.role
+      if (userRole === 'admin')
+        return { name: 'index' } // replace with admin dashboard
+      if (userRole === 'client')
+        return { name: 'index' } // replace with client dashboard
+
+      return { name: 'login', query: to.query }
+    },
+  },
+  {
+    path: '/company',
+    name: 'company',
+    redirect: () => ({ name: 'company', params: { tab: 'company' } }),
+  },
+  {
+    path: '/login',
+    name: 'login',
+    redirect: () => ({ name: 'login', params: { tab: 'login' } }),
   },
   {
     path: '/pages/user-profile',

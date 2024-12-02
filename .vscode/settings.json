@@ -44,16 +44,17 @@
   "cSpell.words": [
     "Composables",
     "Customizer",
+    "datatable",
     "destr",
     "flagpack",
     "Iconify",
+    "nuxt",
     "ofetch",
     "psudo",
     "stylelint",
     "touchless",
     "triggerer",
-    "vuetify",
-    "nuxt"
+    "vuetify"
   ],
   "commentAnchors.tags.anchors": {
     "ℹ️": {

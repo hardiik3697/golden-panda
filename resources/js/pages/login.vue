@@ -1,7 +1,5 @@
 <script setup>
-import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
-import authV2LoginIllustrationBorderedDark from '@images/pages/auth-v2-login-illustration-bordered-dark.png'
-import authV2LoginIllustrationBoimport AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
+import { useAbility } from '@casl/vue'
 import authV2LoginIllustrationBorderedDark from '@images/pages/auth-v2-login-illustration-bordered-dark.png'
 import authV2LoginIllustrationBorderedLight from '@images/pages/auth-v2-login-illustration-bordered-light.png'
 import authV2LoginIllustrationDark from '@images/pages/auth-v2-login-illustration-dark.png'
@@ -10,10 +8,10 @@ import authV2LoginMaskDark from '@images/pages/auth-v2-login-mask-dark.png'
 import authV2LoginMaskLight from '@images/pages/auth-v2-login-mask-light.png'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
+import { useRoute, useRouter } from 'vue-router'
 import { VForm } from 'vuetify/components/VForm'
-ify/components/VForm'
 
-const authThemeImg = useGenerateImainIllustrationDark, authV2LoginIllustrationBorderedLight, authV2LoginIllustrationBorderedDark, true)
+const authThemeImg = useGenerateImageVariant(authV2LoginIllustrationLight, authV2LoginIllustrationDark, authV2LoginIllustrationBorderedLight, authV2LoginIllustrationBorderedDark, true)
 const authThemeMask = useGenerateImageVariant(authV2LoginMaskLight, authV2LoginMaskDark)
 
 definePage({
@@ -36,15 +34,15 @@ const errors = ref({
 const refVForm = ref()
 
 const credentials = ref({
-  email: 'admin@demo.com',
-  password: 'admin',
+  email: '',
+  password: '',
 })
 
 const rememberMe = ref(false)
 
 const login = async () => {
   try {
-    const res = await $api('/auth/login', {
+    const res = await $api('/login', {
       method: 'POST',
       body: {
         email: credentials.value.email,
@@ -62,10 +60,11 @@ const login = async () => {
     useCookie('userData').value = userData
     useCookie('accessToken').value = accessToken
     await nextTick(() => {
-      router.replace(route.query.to ? String(route.query.to) : '/')
+      router.push(route.query.to ? String(route.query.to) : '/')
     })
   } catch (err) {
     console.error(err)
+    showToast('An unexpected error occurred. Please try again.')
   }
 }
 
@@ -192,34 +191,11 @@ const onSubmit = () => {
               <!-- create account -->
               <VCol
                 cols="12"
-                class="text-body-1 text-center"
-              >
-                <span class="d-inline-block">
-                  New on our platform?
-                </span>
-                <RouterLink
-                  class="text-primary ms-1 d-inline-block text-body-1"
-                  :to="{ name: 'register' }"
-                >
-                  Create an account
-                </RouterLink>
-              </VCol>
-
-              <VCol
-                cols="12"
                 class="d-flex align-center"
               >
                 <VDivider />
                 <span class="mx-4 text-high-emphasis">or</span>
                 <VDivider />
-              </VCol>
-
-              <!-- auth providers -->
-              <VCol
-                cols="12"
-                class="text-center"
-              >
-                <AuthProvider />
               </VCol>
             </VRow>
           </VForm>
