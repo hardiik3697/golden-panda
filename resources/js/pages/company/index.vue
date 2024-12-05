@@ -40,7 +40,6 @@ const deleteItem = async val => {
 
     const { statusCode, message, data } = response || {}
 
-    console.log(response.statusCode, statusCode, message, data)
     if (response.code === 200) {
       isSnackbarVisible.value = true
       SnackbarMessage.value = 'Company deleted successfully!'
@@ -65,7 +64,25 @@ onMounted(fetchCompanies)
     {{ SnackbarMessage }}
   </VSnackbar>
   <div>
-    <VRow>
+    <VRow cols="12">
+      <VCol cols="10" />
+      <VCol
+        cols="2"
+        class="d-flex align-right"
+      >
+        <VBtn
+          rounded="pill"
+          variant="outlined"
+          color="primary"
+          :to="{ name: 'company-create' }"
+        >
+          <VIcon
+            start
+            icon="ri-add-line"
+          />
+          Add Company
+        </VBtn>
+      </VCol>
       <VCol cols="12">
         <CompanyDataTable
           :data="companies"

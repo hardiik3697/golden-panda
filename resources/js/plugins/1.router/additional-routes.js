@@ -35,9 +35,15 @@ export const redirects = [
     },
   },
   {
-    path: '/company',
-    name: 'company',
-    redirect: () => ({ name: 'company', params: { tab: 'company' } }),
+    path: '/pages/company',
+    redirect: { name: 'pages-company-index' },
+  },
+  {
+    path: '/pages/company/create',
+    redirect: { name: 'company-create' },
+    meta: {
+      navActiveLink: 'pages-company',
+    },
   },
   {
     path: '/login',
