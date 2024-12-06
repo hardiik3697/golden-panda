@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class Company extends Model
 {
@@ -47,5 +49,35 @@ class Company extends Model
     public static function deleteRecord($id): bool|null
     {
         return self::where('id', $id)->delete();
+    }
+    /**
+     * This function is used to insert or update company record
+     *
+     * @param Request $request
+     * @return array
+     */
+    public static function createOrUpdateCompany(Request $request): array
+    {
+        $id = $request->input('id', null);
+        $data = [
+            'name' => $request->input('name', null),
+            'address' => $request->input('address', null),
+            'initial_bank' => $request->input('initialBank', null),
+            'draws' => $request->input('draws', null),
+        ];
+
+        if ($id) {
+            $updated = self::where('id', $id)->update($data);
+            return [
+                'success' => $updated,
+                'message' => $updated ? 'Record updated successfully' : 'Failed to update record',
+            ];
+        } else {
+            $inserted = self::insert($data);
+            return [
+                'success' => $inserted,
+                'message' => $inserted ? 'Record inserted successfully' : 'Failed to insert record',
+            ];
+        }
     }
 }

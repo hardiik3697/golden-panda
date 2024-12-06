@@ -35,12 +35,17 @@ export const redirects = [
   {
     path: '/pages/company',
     redirect: { name: 'pages-company-index' },
+    meta: {
+      navActiveLink: 'company',
+      layoutWrapperClasses: 'layout-content-height-fixed',
+    },
   },
   {
     path: '/pages/company/create',
-    redirect: { name: 'company-create' },
+    component: '@/pages/pages/company/create.vue',
     meta: {
-      navActiveLink: 'pages-company',
+      navActiveLink: 'company',
+      layoutWrapperClasses: 'layout-content-height-fixed',
     },
   },
   {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCompanyRequest;
 use App\Models\Company;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -22,6 +23,20 @@ class CompanyController extends Controller
         } else {
             return $this->errorResponse($message = 'An error occurred.', 403);
         }
+    }
+    /**
+     * This function is used to store company data
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function store(StoreCompanyRequest $request): JsonResponse
+    {
+        $company = Company::createOrUpdateCompany($request);
+        if ($company['success']) {
+            return $this->successResponse([], $company['message']);
+        }
+        return $this->errorResponse($company['message'], $company['code']);
     }
 
     public function delete($id): JsonResponse

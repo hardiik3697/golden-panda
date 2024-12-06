@@ -6,7 +6,7 @@ export default [
   },
   {
     title: 'Company',
-    to: { name: 'company' },
     icon: { icon: 'ri-building-4-line' },
+    to: 'company',
   },
 ]

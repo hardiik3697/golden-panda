@@ -1,74 +1,107 @@
 <script setup>
-const username = ref('')
-const email = ref('')
-const password = ref()
-const checkbox = ref(false)
+const refVForm = ref([])
+
+const formData = ref({
+  name: '',
+  address: '',
+  initialBank: '0',
+  draws: '',
+})
 
 const items = [
-  'foo',
-  'bar',
-  'fizz',
-  'buzz',
+  'daily',
+  'specific_time_daily',
+  'weekly',
+  'monthly',
 ]
 
-const values = ref([])
+const onSubmit = () => {
+  refVForm.value?.validate().then(({ valid: isValid }) => {
+    if (isValid)
+      storeCompany()
+  })
+}
+
+const storeCompany = async () => {
+  try {
+    const res = await $api('/companies/store', {
+      method: 'POST',
+      body: {
+        name: formData.value.name,
+        address: formData.value.address,
+        initialBank: formData.value.initialBank,
+        draws: formData.value.draws,
+      },
+      onResponseError({ response }) {
+        errors.value = response._data.errors
+      },
+    })
+
+    await nextTick(() => {
+      router.push(route.query.to ? String(route.query.to) : '/company')
+    })
+  } catch (err) {
+    console.error(err)
+  }
+}
 </script>
 
 <template>
-  <VCard>
-    <VCol cola="12">
-      <div class="w-100 sticky-header overflow-hidden rounded-t">
+  <VCard class="overflow-visible">
+    <div class="w-100 sticky-header overflow-hidden rounded-t">
+      <div class=" d-flex align-center gap-4 flex-wrap bg-custom-background pa-6">
         <VCardTitle>Create Company</VCardTitle>
         <VSpacer />
       </div>
-      <VForm @submit.prevent="() => {}">
+    </div>
+    <VCardText>
+      <VForm
+        ref="refVForm"
+        @submit.prevent="() => {}"
+      >
         <VRow>
           <VCol cols="12">
             <!-- 👉 Username -->
             <VTextField
-              v-model="name"
+              v-model="formData.name"
               label="Name"
               placeholder="Google"
+              :rules="[requiredValidator]"
             />
           </VCol>
 
           <VCol cols="12">
             <!-- 👉 Email -->
             <VTextarea
-              v-model="address"
+              v-model="formData.address"
               label="Address"
+              counter
               placeholder="1456, Mall Road"
               rows="2"
+              :rules="[requiredValidator]"
             />
           </VCol>
 
           <VCol cols="12">
             <!-- 👉 Password -->
             <VTextField
-              v-model="initialBank"
+              v-model="formData.initialBank"
               label="Initial Bank"
               type="number"
               placeholder="0"
+              :rules="[requiredValidator, integerValidator]"
             />
           </VCol>
 
           <VCol cols="12">
             <!-- 👉 Autocomplete -->
-            <VAutocomplete
-              v-model="values"
+            <VSelect
+              v-model="formData.draws"
               :items="items"
-              chips
-              multiple
               label="Draws"
+              clearable
               placeholder="Select"
-            />
-          </VCol>
-
-          <VCol cols="12">
-            <!-- 👉 Checkbox -->
-            <VCheckbox
-              v-model="checkbox"
-              label="Remember me"
+              :rules="[requiredValidator]"
             />
           </VCol>
 
@@ -77,20 +110,32 @@ const values = ref([])
             class="d-flex gap-4"
           >
             <!-- 👉 submit and reset button -->
-            <VBtn type="submit">
+            <VBtn
+              type="button"
+              @click="onSubmit"
+            >
               Submit
             </VBtn>
 
             <VBtn
               color="secondary"
-              type="reset"
+              type="button"
               variant="tonal"
+              :to="{ name:'company' }"
             >
-              Reset
+              Cancel
             </VBtn>
           </VCol>
         </VRow>
       </VForm>
-    </VCol>
+    </VCardText>
   </VCard>
 </template>
+
+<style lang="scss" scoped>
+.sticky-header {
+  position: sticky;
+  z-index: 9;
+  transition: all 0.3s ease-in-out;
+}
+</style>
