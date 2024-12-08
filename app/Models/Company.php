@@ -80,4 +80,21 @@ class Company extends Model
             ];
         }
     }
+
+    public static function getCompanyData($id): array
+    {
+        $getCompany = self::where('id', $id)->first();
+        if (!$getCompany) {
+            return [
+                'status' => 'error',
+                'message' => 'Failed to get record',
+                'code' => 404,
+            ];
+        }
+        return [
+            'status' => 'success',
+            'message' => 'Record found successfully',
+            'data' => $getCompany,
+        ];
+    }
 }

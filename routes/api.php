@@ -11,5 +11,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 Route::controller(CompanyController::class)->group(function () {
     Route::get('/companies/', 'index')->name('companies');
     Route::post('/companies/store', 'store')->name('companies.store');
+    Route::get('/companies/edit/{id}', 'edit')->name('companies.edit');
     Route::get('/companies/delete/{id}', 'delete')->name('companies.delete');
 });

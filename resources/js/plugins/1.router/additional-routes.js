@@ -42,12 +42,22 @@ export const redirects = [
   },
   {
     path: '/pages/company/create',
-    component: '@/pages/pages/company/create.vue',
+    component: '@/pages/company/create.vue',
     meta: {
       navActiveLink: 'company',
-      layoutWrapperClasses: 'layout-content-height-fixed',
     },
   },
+
+  //   {
+  //     path: '/pages/company/edit',
+  //     name: 'pages-company-edit',
+  //     redirect: () => ({ name: 'pages-company-edit-id' }),
+  //     meta: {
+  //       navActiveLink: 'company',
+  //       layoutWrapperClasses: 'layout-content-height-fixed',
+  //     },
+  //     props: true,
+  //   },
   {
     path: '/login',
     name: 'login',
@@ -66,5 +76,13 @@ export const redirects = [
 ]
 
 export const routes = [
-
+  {
+    path: '/pages/company/edit/:id',
+    name: 'pages-company-edit',
+    component: () => import('@/pages/company/edit/[id].vue'),
+    meta: {
+      navActiveLink: 'company',
+      layoutWrapperClasses: 'layout-content-height-fixed',
+    },
+  },
 ]

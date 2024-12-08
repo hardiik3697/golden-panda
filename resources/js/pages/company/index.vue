@@ -1,6 +1,8 @@
 <script setup>
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const companies = ref([])
 const isSnackbarVisible = ref(false)
 const SnackbarMessage = ref('')
@@ -26,9 +28,12 @@ const fetchCompanies = async () => {
 
 // Handle edit action
 const editItem = val => {
-  console.log('Edit item with ID:', val)
+  console.log(router.resolve({ name: 'pages-company-edit', params: { id: val } }))
 
-  // Perform edit logic here, such as navigating to the edit page or opening a modal
+  router.push({ name: 'pages-company-edit', params: { id: val } })
+
+
+//   router.push({ name: 'pages-company-edit', params: { id: val } })
 }
 
 // Handle delete action

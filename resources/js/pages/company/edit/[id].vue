@@ -4,7 +4,15 @@ const refVForm = ref([])
 definePage({
   meta: {
     navActiveLink: 'company',
+    key: 'id',
   },
+})
+
+const route = useRoute('company-edit-id')
+
+const CompanyId = computed({
+  get: () => route.params.id,
+  set: () => route.params.id,
 })
 
 const formData = ref({
@@ -21,6 +29,28 @@ const items = [
   'monthly',
 ]
 
+const fetchCompanyData = async val => {
+  try {
+    const res = await $api(`/companies/edit/${val}`, {
+      method: 'GET',
+      onResponseError({ response }) {
+        errors.value = response._data.errors
+      },
+    })
+
+    const data = res.data
+
+    console.log(data)
+    formData.value.id = data.id
+    formData.value.name = data.name
+    formData.value.address = data.address
+    formData.value.initialBank = data.initial_bank
+    formData.value.draws = data.draws
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 const onSubmit = () => {
   refVForm.value?.validate().then(({ valid: isValid }) => {
     if (isValid)
@@ -33,6 +63,7 @@ const storeCompany = async () => {
     const res = await $api('/companies/store', {
       method: 'POST',
       body: {
+        id: formData.value.id,
         name: formData.value.name,
         address: formData.value.address,
         initialBank: formData.value.initialBank,
@@ -50,13 +81,23 @@ const storeCompany = async () => {
     console.error(err)
   }
 }
+
+// Fetch companies when the component is mounted
+onMounted(() => {
+//   if (CompanyId.value) {
+  fetchCompanyData(CompanyId.value)
+
+//   } else {
+//     console.error('Company ID is missing in route params.')
+//   }
+})
 </script>
 
 <template>
   <VCard class="overflow-visible">
     <div class="w-100 sticky-header overflow-hidden rounded-t">
       <div class=" d-flex align-center gap-4 flex-wrap bg-custom-background pa-6">
-        <VCardTitle>Create Company</VCardTitle>
+        <VCardTitle>Update Company</VCardTitle>
         <VSpacer />
       </div>
     </div>
@@ -137,11 +178,3 @@ const storeCompany = async () => {
     </VCardText>
   </VCard>
 </template>
-
-<style lang="scss" scoped>
-.sticky-header {
-  position: sticky;
-  z-index: 9;
-  transition: all 0.3s ease-in-out;
-}
-</style>

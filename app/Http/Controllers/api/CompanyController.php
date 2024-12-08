@@ -39,6 +39,15 @@ class CompanyController extends Controller
         return $this->errorResponse($company['message'], $company['code']);
     }
 
+    public function edit($id)
+    {
+        $company = Company::getCompanyData($id);
+        if ($company['status'] == 'success') {
+            return $this->successResponse($company['data'], $company['message']);
+        }
+        return $this->errorResponse($company['message'], $company['code']);
+    }
+
     public function delete($id): JsonResponse
     {
         // $companies = Company::deleteRecord($id);
