@@ -13,11 +13,16 @@ export const $api = ofetch.create({
     }
   },
   async onResponse({ response }) {
-    // Attach the status code to the response data
+    // Include the status in the response
+    const responseData = await response // Parse the response JSON
 
-    const data = response
-    const statusCode = response.status
-
-    return { ...data, statusCode } // Merge the status with the JSON response
+    return { ...responseData, status: response.status }
   },
+  async onResponseError({ response }) {
+    console.error('Error during request:', response.status)
+
+    const responseData = await response // Parse the response JSON
+    throw { ...responseData, status: response.status }
+  },
+
 })

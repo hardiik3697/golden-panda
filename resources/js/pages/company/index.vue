@@ -10,7 +10,6 @@ const SnackbarMessageColor = ref('')
 
 // Fetch the list of companies
 const fetchCompanies = async () => {
-  alert('called')
   try {
     const response = await $api('/companies', {
       method: 'GET',
@@ -28,12 +27,7 @@ const fetchCompanies = async () => {
 
 // Handle edit action
 const editItem = val => {
-  console.log(router.resolve({ name: 'pages-company-edit', params: { id: val } }))
-
   router.push({ name: 'pages-company-edit', params: { id: val } })
-
-
-//   router.push({ name: 'pages-company-edit', params: { id: val } })
 }
 
 // Handle delete action
@@ -43,15 +37,21 @@ const deleteItem = async val => {
       method: 'GET',
     })
 
-    const { statusCode, message, data } = response || {}
+    // const { statusCode, message, data } = response || {}
 
-    if (response.code === 200) {
+    console.log(response.code, response.status)
+    if (response.status === 200) {
       isSnackbarVisible.value = true
       SnackbarMessage.value = 'Company deleted successfully!'
-      SnackbarMessageColor.value = 'success',
+      SnackbarMessageColor.value = 'success'
 
       await fetchCompanies() // Reload the company list
+    } else {
+      isSnackbarVisible.value = true
+      SnackbarMessage.value = response.message || 'Failed to delete company.'
+      SnackbarMessageColor.value = 'error'
     }
+
   } catch (error) {
     isSnackbarVisible.value = true
     SnackbarMessage.value = 'Failed to fetch companies.'

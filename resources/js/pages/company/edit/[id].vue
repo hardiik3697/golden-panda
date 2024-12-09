@@ -1,4 +1,6 @@
 <script setup>
+import { useRouter } from 'vue-router';
+
 const refVForm = ref([])
 
 definePage({
@@ -14,6 +16,8 @@ const CompanyId = computed({
   get: () => route.params.id,
   set: () => route.params.id,
 })
+
+const router = useRouter()
 
 const formData = ref({
   name: '',
@@ -40,7 +44,6 @@ const fetchCompanyData = async val => {
 
     const data = res.data
 
-    console.log(data)
     formData.value.id = data.id
     formData.value.name = data.name
     formData.value.address = data.address
@@ -74,6 +77,7 @@ const storeCompany = async () => {
       },
     })
 
+    console.log(res)
     await nextTick(() => {
       router.push(route.query.to ? String(route.query.to) : '/company')
     })
@@ -84,12 +88,11 @@ const storeCompany = async () => {
 
 // Fetch companies when the component is mounted
 onMounted(() => {
-//   if (CompanyId.value) {
-  fetchCompanyData(CompanyId.value)
-
-//   } else {
-//     console.error('Company ID is missing in route params.')
-//   }
+  if (CompanyId.value) {
+    fetchCompanyData(CompanyId.value)
+  } else {
+    console.error('Company ID is missing in route params.')
+  }
 })
 </script>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreCompanyRequest extends FormRequest
 {
@@ -21,8 +22,15 @@ class StoreCompanyRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->input('id', null);
+
         return [
-            'name' => ['required', 'string', 'max:255', 'unique:companies,name'],
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('companies', 'name')->ignore($id), // Ignore current record if `id` exists
+            ],
             'address' => ['required', 'string'],
             'initialBank' => ['required', 'numeric'],
             'draws' => ['required', 'in:daily,specific_time_daily,weekly,monthly'],

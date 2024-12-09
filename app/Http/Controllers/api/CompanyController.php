@@ -52,7 +52,7 @@ class CompanyController extends Controller
     {
         // $companies = Company::deleteRecord($id);
         // if ($companies) {
-        return $this->successResponse(null, 'Companies retrieved successfully.');
+        return $this->successResponse(null, 'Companies deleted successfully.');
         // } else {
         //     return $this->errorResponse($message = 'An error occurred.', 403);
         // }

@@ -5,6 +5,10 @@ export const redirects = [
   {
     path: '/',
     name: 'index',
+    meta: {
+      navActiveLink: 'index',
+      public: false,
+    },
     redirect: to => {
       // TODO: Get type from backend
       const userData = useCookie('userData')
